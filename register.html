@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Access - NBA Accreditation Portal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .register-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .register-header h1 {
+            color: #2C3E50;
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+        
+        .register-header p {
+            color: #6C757D;
+            line-height: 1.6;
+        }
+        
+        .access-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .access-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid #1ABC9C;
+            transition: transform 0.3s;
+        }
+        
+        .access-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .access-card h3 {
+            color: #2C3E50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .access-card ul {
+            list-style: none;
+            margin-left: 10px;
+        }
+        
+        .access-card li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .access-card li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #1ABC9C;
+            font-weight: bold;
+        }
+        
+        .contact-info {
+            background: #e8f4fd;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info h3 {
+            color: #2C3E50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-item i {
+            color: #1ABC9C;
+            font-size: 1.2rem;
+            width: 30px;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #1ABC9C;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-back:hover {
+            background: #17A589;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 30px;
+            }
+            
+            .access-levels {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Request Access to NBA Portal</h1>
+            <p>Access to the NBA Accreditation Portal is restricted to authorized personnel. Please review the access levels below and contact the appropriate person for access requests.</p>
+        </div>
+        
+        <div class="access-levels">
+            <div class="access-card">
+                <h3><i class="fas fa-user-tie"></i> Faculty Access</h3>
+                <ul>
+                    <li>View all NBA criteria details</li>
+                    <li>Access to department-specific documents</li>
+                    <li>Submit faculty contributions</li>
+                    <li>View compliance status</li>
+                </ul>
+            </div>
+            
+            <div class="access-card">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Coordinator Access</h3>
+                <ul>
+                    <li>Full administrative access</li>
+                    <li>Upload and manage documents</li>
+                    <li>Generate compliance reports</li>
+                    <li>Manage user access</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h3><i class="fas fa-address-card"></i> Contact for Access</h3>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i class="fas fa-user"></i>
+                    <div>
+                        <strong>Dr. Senoj Joseph</strong><br>
+                        NBA Accreditation Coordinator
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email:</strong><br>
+                        senoj.joseph@ecetonline.com
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Phone:</strong><br>
+                        +91 9876543210
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Process:</strong><br>
+                        Email with your name, designation, department, and purpose of access
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="login.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Login
+        </a>
+    </div>
+</body>
+</html>
