@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Labs | Department of IT - EASA College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* COPY ALL CSS FROM INDEX.HTML HERE */
+        :root {
+            --primary: #2C3E50;
+            --secondary: #1ABC9C;
+            --accent: #E74C3C;
+            --accent2: #1ABC9C;
+            --accent3: #1ABC9C;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --white: #FFFFFF;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--dark); background-color: var(--light); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header & Navigation Styles - SAME AS INDEX.HTML */
+        .top-bar { background-color: var(--primary); color: var(--white); padding: 10px 0; font-size: 0.9rem; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar span { margin-right: 20px; }
+        .top-bar i { margin-right: 5px; color: var(--secondary); }
+        
+        @media (max-width: 768px) {
+            .top-bar .container { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .top-bar span { display: block; margin-right: 0; margin-bottom: 5px; }
+        }
+        
+        .main-nav { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .main-nav .container { display: flex; justify-content: space-between; align-items: center; padding: 15px 8px; }
+        
+        .logo { display: flex; align-items: center; text-decoration: none; color: var(--primary); }
+        .logo-image { width: 200px; height: 200px; border-radius: 8px; overflow: hidden; background-color: var(--light); display: flex; align-items: left; justify-content: left; padding: 5px; margin-right: 15px; }
+        .logo-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .logo-text { margin-left: 0; }
+        .logo-text h1 { font-size: 1.5rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; color: var(--primary); }
+        .logo-text p { font-size: 0.8rem; color: var(--gray); }
+        
+        /* Navigation Menu - SAME AS INDEX.HTML */
+        .nav-menu { display: flex; list-style: none; align-items: center; position: relative; }
+        .nav-menu > li { position: relative; margin-left: 3px; }
+        .nav-menu > li > a { text-decoration: none; color: var(--primary); font-weight: 400; padding: 8px 8px; border-radius: 5px; transition: all 0.3s; display: flex; align-items: center; white-space: nowrap; }
+        .nav-menu > li > a:hover, .nav-menu > li > a.active { background-color: var(--secondary); color: var(--white); }
+        .nav-menu i { margin-right: 8px; }
+        
+        /* Dropdown Menus */
+        .dropdown { position: relative; }
+        .dropdown-toggle::after { content: '▾'; margin-left: 8px; font-size: 0.9em; }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background-color: var(--white); min-width: 240px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 10px 0; z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu li { list-style: none; }
+        .dropdown-menu a { display: block; padding: 10px 20px; color: var(--dark); text-decoration: none; transition: all 0.3s; border-left: 3px solid transparent; }
+        .dropdown-menu a:hover { background-color: rgba(26, 188, 156, 0.1); color: var(--secondary); border-left-color: var(--secondary); padding-left: 25px; }
+        
+        /* Sub-dropdown */
+        .sub-dropdown { position: relative; }
+        .sub-dropdown-toggle::after { content: '▸'; float: right; margin-left: 10px; }
+        .sub-dropdown-menu { position: absolute; top: 0; left: 100%; background-color: var(--white); min-width: 220px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateX(-10px); transition: all 0.3s; }
+        .sub-dropdown:hover .sub-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(0); }
+        
+        /* Mobile Toggle */
+        .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+        
+        /* Special Buttons in Navbar */
+        .nav-special-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+        
+        .nav-special-btn {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            height: 36px;
+        }
+        
+        .nav-special-btn i:first-child { margin-right: 6px; font-size: 0.9rem; }
+        .nav-special-btn i.fa-chevron-down { margin-left: 5px; font-size: 0.7rem; }
+        
+        .nav-special-btn.research-btn {
+            background-color: #2E86C1;
+            border-bottom: 2px solid #1B4F72;
+        }
+        
+        .nav-special-btn.accreditation-btn {
+            background-color: #28B463;
+            border-bottom: 2px solid #1D8348;
+        }
+        
+        .nav-special-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        .nav-special-buttons .special-dropdown-menu {
+            top: 100%;
+            right: 0;
+            min-width: 200px;
+            margin-top: 5px;
+            z-index: 1002;
+        }
+        
+        .nav-special-buttons .special-dropdown {
+            position: relative;
+        }
+        
+        /* Page Specific Styles */
+        .page-header {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.95)), url('images/research-labs-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .breadcrumb {
+            background-color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .breadcrumb .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--secondary);
+        }
+        
+        .breadcrumb .separator {
+            color: var(--gray);
+        }
+        
+        .breadcrumb .current {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        /* Research Labs Content */
+        .research-labs-content {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .labs-overview {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        
+        .labs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .lab-card {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid #2E86C1;
+        }
+        
+        .lab-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .lab-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .lab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .lab-card:hover .lab-image img {
+            transform: scale(1.05);
+        }
+        
+        .lab-content {
+            padding: 25px;
+        }
+        
+        .lab-category {
+            display: inline-block;
+            background: rgba(46, 134, 193, 0.1);
+            color: #2E86C1;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .lab-category.ai {
+            background: rgba(231, 76, 60, 0.1);
+            color: #E74C3C;
+        }
+        
+        .lab-category.cyber {
+            background: rgba(155, 89, 182, 0.1);
+            color: #9B59B6;
+        }
+        
+        .lab-category.iot {
+            background: rgba(243, 156, 18, 0.1);
+            color: #F39C12;
+        }
+        
+        .lab-category.data {
+            background: rgba(39, 174, 96, 0.1);
+            color: #27AE60;
+        }
+        
+        .lab-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .lab-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .lab-equipment {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .equipment-title {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .equipment-title i {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+        
+        .equipment-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .equipment-tag {
+            background: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .lab-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .lab-incharge {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .incharge-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .incharge-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .lab-link {
+            color: #2E86C1;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .lab-link:hover {
+            color: var(--secondary);
+        }
+        
+        .lab-link i {
+            margin-left: 5px;
+            font-size: 0.8rem;
+        }
+        
+        /* Lab Facilities Section */
+        .facilities-section {
+            padding: 60px 0;
+            background-color: var(--light);
+            margin-top: 40px;
+        }
+        
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .facility-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .facility-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(46, 134, 193, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #2E86C1;
+            font-size: 1.5rem;
+        }
+        
+        .facility-title {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .facility-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Footer - SAME AS INDEX.HTML */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .nav-menu > li > a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-special-buttons {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 140px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                padding: 20px;
+                max-height: calc(100vh - 140px);
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu > li {
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            
+            .nav-menu > li > a {
+                padding: 15px;
+                width: 100%;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.03);
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .sub-dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.02);
+                margin-left: 20px;
+            }
+            
+            .sub-dropdown.active .sub-dropdown-menu {
+                display: block;
+            }
+            
+            .page-header {
+                padding: 70px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .page-header p {
+                font-size: 1.1rem;
+            }
+            
+            .logo-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .dropdown-toggle::after,
+            .sub-dropdown-toggle::after {
+                float: right;
+            }
+            
+            /* Show special buttons in mobile menu */
+            .nav-menu.active + .nav-special-buttons {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            .nav-menu.active + .nav-special-buttons .nav-special-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .labs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lab-details {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+    
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="college-info">
+                    <span><i class="fas fa-university"></i> EASA College of Engineering & Technology</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</span>
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 9843682583</span>
+                    <span><i class="fas fa-envelope"></i> hod.it@ecetonline.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="EASA College Logo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>'">
+                    </div>
+                    <div class="logo-text">
+                        <h1>EASA College of Engineering & Technology</h1>
+                        <p><strong>An Autonomous and NAAC A accredited Institution</strong></p>
+                    </div>
+                </a>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    
+                    <!-- Academics -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-graduation-cap"></i> Academics</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="academic-calendar.html"><i class="fas fa-calendar-alt"></i> Academic Calendar</a></li>
+                            <li><a href="timetable.html"><i class="fas fa-clock"></i> Timetable</a></li>
+                            <li><a href="curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+                            <li><a href="regulations.html"><i class="fas fa-file-alt"></i> Regulations</a></li>
+                            <li><a href="bos.html"><i class="fas fa-users"></i> BoS</a></li>
+                            <li><a href="cdc-minutes.html"><i class="fas fa-file-contract"></i> CDC Minutes</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Placement -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-briefcase"></i> Placement</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="placement-training.html"><i class="fas fa-chalkboard-teacher"></i> Training</a></li>
+                            <li><a href="placement-internship.html"><i class="fas fa-laptop-code"></i> Internship</a></li>
+                            <li><a href="placement.html"><i class="fas fa-user-tie"></i> Placement</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- IT-SPARK HUB -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-users"></i> IT-SPARK HUB</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="association-activities.html"><i class="fas fa-calendar-check"></i> Association Activities</a></li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-newspaper"></i> Newsletter (The Spark)</a>
+                                <ul class="sub-dropdown-menu">
+                                     <li><a href="newsletter.html">Vol.1 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.1 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 2</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-book-open"></i> Magazine (Sparkles)</a>
+                                <ul class="sub-dropdown-menu">
+                                    <li><a href="magazine.html">Vol.1 AY 2023-24</a></li>
+                                    <li><a href="magazine.html">Vol.2 AY 2024-25</a></li>
+                                    <li><a href="magazine.html">Vol.3 AY 2025-26</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                    <li><a href="laboratories.html"><i class="fas fa-flask"></i> Laboratories</a></li>
+                    <li><a href="contact.html"><i class="fas fa-address-book"></i> Contact</a></li>
+                </ul>
+                
+                
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Department of Information Technology</a>
+            <span class="separator">/</span>
+            <a href="research-projects.html">Research</a>
+            <span class="separator">/</span>
+            <span class="current">Research Labs</span>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Research Laboratories</h1>
+            <p>State-of-the-art research facilities for cutting-edge innovation and discovery</p>
+        </div>
+    </section>
+
+    <!-- Research Labs Content -->
+    <section class="research-labs-content">
+        <div class="container">
+            <div class="labs-overview">
+                <p>The Department of Information Technology at EASA College boasts specialized research laboratories equipped with advanced hardware and software resources. These labs provide an ideal environment for faculty and students to conduct innovative research, develop prototypes, and collaborate on interdisciplinary projects.</p>
+            </div>
+            
+            <div class="labs-grid">
+                <!-- Lab 1 -->
+                <div class="lab-card">
+                    <div class="lab-image">
+                        <img src="images/ai-lab.jpg" alt="AI & Machine Learning Lab" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22><rect width=%22400%22 height=%22200%22 fill=%22%232E86C1%22/><text x=%22200%22 y=%22100%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22>AI & ML Lab</text></svg>'">
+                    </div>
+                    <div class="lab-content">
+                        <span class="lab-category ai">Artificial Intelligence</span>
+                        <h3 class="lab-title">Center for AI & Machine Learning</h3>
+                        <p class="lab-description">A cutting-edge lab dedicated to AI research including deep learning, computer vision, natural language processing, and reinforcement learning. Equipped with high-performance GPUs for training complex models.</p>
+                        
+                        <div class="lab-equipment">
+                            <div class="equipment-title">
+                                <i class="fas fa-microchip"></i> Key Equipment
+                            </div>
+                            <div class="equipment-list">
+                                <span class="equipment-tag">NVIDIA DGX Station</span>
+                                <span class="equipment-tag">GPU Servers</span>
+                                <span class="equipment-tag">High-Speed Storage</span>
+                                <span class="equipment-tag">AI Workstations</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lab-details">
+                            <div class="lab-incharge">
+                                <span class="incharge-name">Dr. R. Kumar</span>
+                                <span class="incharge-role">Lab In-charge</span>
+                            </div>
+                            <a href="#" class="lab-link">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lab 2 -->
+                <div class="lab-card">
+                    <div class="lab-image">
+                        <img src="images/cyber-lab.jpg" alt="Cyber Security Lab" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22><rect width=%22400%22 height=%22200%22 fill=%229B59B6%22/><text x=%22200%22 y=%22100%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22>Cyber Security Lab</text></svg>'">
+                    </div>
+                    <div class="lab-content">
+                        <span class="lab-category cyber">Cyber Security</span>
+                        <h3 class="lab-title">Advanced Cyber Security Research Lab</h3>
+                        <p class="lab-description">A secure environment for cybersecurity research including network security, cryptography, digital forensics, and vulnerability assessment. Features isolated networks for penetration testing.</p>
+                        
+                        <div class="lab-equipment">
+                            <div class="equipment-title">
+                                <i class="fas fa-shield-alt"></i> Key Equipment
+                            </div>
+                            <div class="equipment-list">
+                                <span class="equipment-tag">Security Workstations</span>
+                                <span class="equipment-tag">Network Simulators</span>
+                                <span class="equipment-tag">Forensic Tools</span>
+                                <span class="equipment-tag">Encryption Devices</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lab-details">
+                            <div class="lab-incharge">
+                                <span class="incharge-name">Dr. M. Priya</span>
+                                <span class="incharge-role">Lab In-charge</span>
+                            </div>
+                            <a href="#" class="lab-link">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lab 3 -->
+                <div class="lab-card">
+                    <div class="lab-image">
+                        <img src="images/iot-lab.jpg" alt="IoT Research Lab" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22><rect width=%22400%22 height=%22200%22 fill=%22F39C12%22/><text x=%22200%22 y=%22100%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22>IoT Research Lab</text></svg>'">
+                    </div>
+                    <div class="lab-content">
+                        <span class="lab-category iot">Internet of Things</span>
+                        <h3 class="lab-title">IoT & Embedded Systems Lab</h3>
+                        <p class="lab-description">A comprehensive lab for IoT research featuring development boards, sensors, actuators, and communication modules. Supports projects in smart cities, healthcare, agriculture, and industrial automation.</p>
+                        
+                        <div class="lab-equipment">
+                            <div class="equipment-title">
+                                <i class="fas fa-wifi"></i> Key Equipment
+                            </div>
+                            <div class="equipment-list">
+                                <span class="equipment-tag">Arduino/Raspberry Pi</span>
+                                <span class="equipment-tag">Sensor Kits</span>
+                                <span class="equipment-tag">LoRa/5G Modules</span>
+                                <span class="equipment-tag">IoT Gateways</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lab-details">
+                            <div class="lab-incharge">
+                                <span class="incharge-name">Prof. S. Rajan</span>
+                                <span class="incharge-role">Lab In-charge</span>
+                            </div>
+                            <a href="#" class="lab-link">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lab 4 -->
+                <div class="lab-card">
+                    <div class="lab-image">
+                        <img src="images/data-lab.jpg" alt="Data Science Lab" onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22><rect width=%22400%22 height=%22200%22 fill=%2227AE60%22/><text x=%22200%22 y=%22100%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22>Data Science Lab</text></svg>'">
+                    </div>
+                    <div class="lab-content">
+                        <span class="lab-category data">Data Science</span>
+                        <h3 class="lab-title">Big Data Analytics Research Center</h3>
+                        <p class="lab-description">A dedicated facility for big data research with high-capacity storage and processing capabilities. Supports research in data mining, predictive analytics, business intelligence, and data visualization.</p>
+                        
+                        <div class="lab-equipment">
+                            <div class="equipment-title">
+                                <i class="fas fa-database"></i> Key Equipment
+                            </div>
+                            <div class="equipment-list">
+                                <span class="equipment-tag">Hadoop Cluster</span>
+                                <span class="equipment-tag">Spark Servers</span>
+                                <span class="equipment-tag">NoSQL Databases</span>
+                                <span class="equipment-tag">Visualization Tools</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lab-details">
+                            <div class="lab-incharge">
+                                <span class="incharge-name">Dr. A. Sharma</span>
+                                <span class="incharge-role">Lab In-charge</span>
+                            </div>
+                            <a href="#" class="lab-link">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Facilities Section -->
+    <section class="facilities-section">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px;">Common Research Facilities</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: var(--gray);">All research labs are supported by shared infrastructure and facilities to enhance collaborative research.</p>
+            
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="facility-title">High-Performance Computing</h3>
+                    <p class="facility-desc">Dedicated HPC cluster with 128 cores, 512GB RAM, and parallel processing capabilities for complex simulations.</p>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="facility-title">Cloud Computing Resources</h3>
+                    <p class="facility-desc">Access to cloud platforms with research credits for AWS, Azure, and Google Cloud for scalable computing needs.</p>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="facility-title">Advanced Networking</h3>
+                    <p class="facility-desc">10 Gbps dedicated research network with isolated segments for security testing and high-speed data transfer.</p>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="facility-title">Prototyping Equipment</h3>
+                    <p class="facility-desc">3D printers, PCB fabrication tools, and electronic testing equipment for hardware prototyping and development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Department of IT</h3>
+                    <p>EASA College of Engineering & Technology<br>
+                    Navakkarai, Coimbatore - 641105<br>
+                    Tamil Nadu, India</p>
+                    <p><i class="fas fa-phone"></i> +91 9843682583</p>
+                    <p><i class="fas fa-envelope"></i> hod.it@ecetonline.com</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Department</a></li>
+                        <li><a href="faculty.html">Faculty</a></li>
+                        <li><a href="laboratories.html">Laboratories</a></li>
+                        <li><a href="placement.html">Placement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Research</h3>
+                    <ul>
+                        <li><a href="research-projects.html">Research Projects</a></li>
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="conferences.html">Conferences</a></li>
+                        <li><a href="patents.html">Patents</a></li>
+                        <li><a href="research-labs.html">Research Labs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Department of Information Technology, EASA College of Engineering & Technology. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Dropdown menu handling for mobile
+        const dropdowns = document.querySelectorAll('.dropdown, .sub-dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle, .sub-dropdown-toggle');
+            
+            if (toggle) {
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('active');
+                        
+                        // Close other dropdowns
+                        dropdowns.forEach(otherDropdown => {
+                            if (otherDropdown !== dropdown) {
+                                otherDropdown.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

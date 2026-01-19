@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Department | Department of Information Technology - EASA College of Engineering & Technology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #1ABC9C;
+            --accent: #E74C3C;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .top-bar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar span {
+            margin-right: 10px;
+        }
+        
+        .top-bar i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .top-bar span {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+        
+        .main-nav {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .logo-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--light);
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 5px;
+            margin-right: 15px;
+           
+        }
+        
+        .logo-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            margin-left: -5px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+        }
+        
+        .logo-text p {
+          font-size: 0.8rem;
+            color: var(--gray);
+
+        }
+        
+         /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-menu > li {
+            position: relative;
+            margin-left: 3px;
+        }
+        
+        .nav-menu > li > a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 400;
+            padding: 8px 8px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .nav-menu > li > a:hover,
+        .nav-menu > li > a.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .nav-menu i {
+            margin-right: 8px;
+        }
+        
+        /* Dropdown Menus */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▾';
+            margin-left: 8px;
+            font-size: 0.9em;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 240px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        /* Sub-dropdown */
+        .sub-dropdown {
+            position: relative;
+        }
+        
+        .sub-dropdown-toggle::after {
+            content: '▸';
+            float: right;
+            margin-left: 10px;
+        }
+        
+        .sub-dropdown-menu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+        
+        .sub-dropdown:hover .sub-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.95)), url('images/about-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .breadcrumb .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--secondary);
+        }
+        
+        .breadcrumb .separator {
+            color: var(--gray);
+        }
+        
+        .breadcrumb .current {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        /* About Content */
+        .about-content {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .about-section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .section-title.center {
+            text-align: center;
+        }
+        
+        .section-title.center h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .content-box {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .content-box h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .content-box h3 i {
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        .content-box p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(26, 188, 156, 0.1), rgba(44, 62, 80, 0.05));
+            border-left: 4px solid var(--secondary);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        /* Department Highlights */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .highlight-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .highlight-card i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .highlight-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--secondary);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+            padding-left: 60px;
+        }
+        
+        .timeline-date {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        /* Quick Links Bar */
+        .quick-links-bar {
+            background-color: var(--primary);
+            padding: 30px 0;
+            margin: 40px 0;
+        }
+        
+        .quick-links-bar .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .quick-link-btn {
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quick-link-btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer - SAME AS INDEX.HTML */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .nav-menu > li > a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px !important;
+                text-align: left !important;
+                left: 0 !important;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: 20px;
+                right: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 140px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                padding: 20px;
+                max-height: calc(100vh - 140px);
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu > li {
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            
+            .nav-menu > li > a {
+                padding: 15px;
+                width: 100%;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.03);
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .sub-dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.02);
+                margin-left: 20px;
+            }
+            
+            .sub-dropdown.active .sub-dropdown-menu {
+                display: block;
+            }
+            
+            .page-header {
+                padding: 70px 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .page-header p {
+                font-size: 1.1rem;
+            }
+            
+            .logo-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .dropdown-toggle::after,
+            .sub-dropdown-toggle::after {
+                float: right;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .content-box {
+                padding: 25px;
+            }
+            
+            .quick-links-bar .container {
+                flex-direction: column;
+            }
+            
+            .quick-link-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="college-info">
+                    <span><i class="fas fa-university"></i> EASA College of Engineering & Technology</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</span>
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 9843682583</span>
+                    <span><i class="fas fa-envelope"></i> hod.it@ecetonline.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="EASA College Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>EASA College of Engineering & Technology</h1>
+                        <p><strong>An Autonomous and NAAC A accredited Institution</strong></p>
+                    </div>
+                </a>
+
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+                    
+                    <!-- Academics -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-graduation-cap"></i> Academics</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="academic-calendar.html"><i class="fas fa-calendar-alt"></i> Academic Calendar</a></li>
+                            <li><a href="timetable.html"><i class="fas fa-clock"></i> Timetable</a></li>
+                            <li><a href="curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+                            <li><a href="regulations.html"><i class="fas fa-file-alt"></i> Regulations</a></li>
+                            <li><a href="bos.html"><i class="fas fa-users"></i> BoS</a></li>
+                            <li><a href="cdc-minutes.html"><i class="fas fa-file-contract"></i> CDC Minutes</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Placement -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-briefcase"></i> Placement</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="placement-training.html"><i class="fas fa-chalkboard-teacher"></i> Training</a></li>
+                            <li><a href="placement-internship.html"><i class="fas fa-laptop-code"></i> Internship</a></li>
+                            <li><a href="placement.html"><i class="fas fa-user-tie"></i> Placement</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- IT-SPARK HUB -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-users"></i> IT-SPARK HUB</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="association-activities.html"><i class="fas fa-calendar-check"></i> Association Activities</a></li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-newspaper"></i> Newsletter (The Spark)</a>
+                                <ul class="sub-dropdown-menu">
+                                     <li><a href="newsletter.html">Vol.1 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.1 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 2</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-book-open"></i> Magazine (Sparkles)</a>
+                                <ul class="sub-dropdown-menu">
+                                    <li><a href="magazine.html">Vol.1 AY 2023-24</a></li>
+                                    <li><a href="magazine.html">Vol.2 AY 2024-25</a></li>
+                                    <li><a href="magazine.html">Vol.3 AY 2025-26</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                    <li><a href="laboratories.html"><i class="fas fa-flask"></i> Laboratories</a></li>
+                    <li><a href="contact.html"><i class="fas fa-address-book"></i> Contact</a></li>
+                </ul>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span class="current">About Department</span>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>About the Department</h1>
+            <p>Excellence in Information Technology Education, Research, and Innovation since 2001</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <!-- Introduction -->
+            <div class="about-section">
+                <div class="section-title">
+                    <h2>Department Overview</h2>
+                </div>
+                
+                <div class="content-box">
+                    <h3><i class="fas fa-building"></i> Welcome to IT@EASA CET</h3>
+                    <p>The Department of Information Technology at EASA College of Engineering & Technology was established in 2001 with a vision to produce globally competent IT professionals who can meet the challenges of the rapidly evolving technology landscape.</p>
+                    
+                    <p>Over the past 22+ years, our department has grown into a center of excellence, recognized for its quality education, state-of-the-art infrastructure, experienced faculty, and strong industry-academia collaborations.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Our mission</strong> is to deliver cutting-edge IT education, inspire innovation, and transform students into socially responsible professionals who can leverage technology to solve real-world problems and serve society ethically.</p>
+                    </div>
+                    
+                    <p>The department offers a comprehensive B.Tech program in Information Technology that is designed to equip students with both theoretical knowledge and practical skills required in the IT industry. Our curriculum is regularly updated to incorporate emerging technologies and industry trends.</p>
+                </div>
+            </div>
+
+            <!-- Department Highlights -->
+            <div class="about-section">
+                <div class="section-title center">
+                    <h2>Key Highlights</h2>
+                </div>
+                
+                <div class="highlights-grid">
+                    <div class="highlight-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Experienced Faculty</h4>
+                        <p>11 dedicated faculty members with PhDs and industry experience</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Modern Laboratories</h4>
+                        <p>10+ well-equipped labs with latest software and hardware</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Industry Connect</h4>
+                        <p>Strong ties with IT companies for internships and placements</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Excellent Placements</h4>
+                        <p>Consistent placement record with leading IT companies</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <i class="fas fa-flask"></i>
+                        <h4>Research Focus</h4>
+                        <p>Active research in AI, IoT, Cybersecurity, and Data Science</p>
+                    </div>
+                    
+                    <div class="highlight-card">
+                        <i class="fas fa-trophy"></i>
+                        <h4>Accreditation</h4>
+                        <p>NAAC A accredited and NBA accredited program</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department History -->
+            <div class="about-section">
+                <div class="section-title">
+                    <h2>Our Journey</h2>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2001</div>
+                        <div class="timeline-content">
+                            <h4>Department Established</h4>
+                            <p>Department of Information Technology was established with an intake of 60 students per year.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2006</div>
+                        <div class="timeline-content">
+                            <h4>First Accreditation</h4>
+                            <p>Received NBA accreditation for the B.Tech IT program.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2012</div>
+                        <div class="timeline-content">
+                            <h4>Intake Increased</h4>
+                            <p>Student intake increased to 120 per year due to growing demand.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2018</div>
+                        <div class="timeline-content">
+                            <h4>New Research Center</h4>
+                            <p>Established Center for AI and IoT Research with industry collaboration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021</div>
+                        <div class="timeline-content">
+                            <h4>NAAC A Accreditation</h4>
+                            <p>College received NAAC A grade accreditation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-content">
+                            <h4>Current Status</h4>
+                            <p>180 students per year intake with state-of-the-art infrastructure and 11 faculty members.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infrastructure -->
+            <div class="about-section">
+                <div class="section-title">
+                    <h2>Infrastructure & Facilities</h2>
+                </div>
+                
+                <div class="content-box">
+                    <h3><i class="fas fa-university"></i> Campus Facilities</h3>
+                    <p>Our department is housed in a modern building with spacious classrooms, seminar halls, and state-of-the-art laboratories. The campus features:</p>
+                    
+                    <ul style="margin-left: 30px; margin-bottom: 20px;">
+                        <li>10+ specialized IT laboratories with latest hardware and software</li>
+                        <li>High-speed internet connectivity throughout the campus</li>
+                        <li>Digital library with access to online journals and e-books</li>
+                        <li>Seminar halls with audio-visual facilities</li>
+                        <li>Project lab for final year students</li>
+                        <li>Research center for faculty and student projects</li>
+                        <li>24/7 computer access for students</li>
+                    </ul>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <a href="laboratories.html" class="btn">
+                            <i class="fas fa-flask"></i> Explore Our Laboratories
+                        </a>
+                        <a href="campus-tour.html" class="btn btn-outline">
+                            <i class="fas fa-video"></i> Virtual Campus Tour
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links Bar -->
+            <div class="quick-links-bar">
+                <div class="container">
+                    <a href="faculty.html" class="quick-link-btn">
+                        <i class="fas fa-chalkboard-teacher"></i> Faculty Profiles
+                    </a>
+                    <a href="curriculum.html" class="quick-link-btn">
+                        <i class="fas fa-book"></i> Curriculum Details
+                    </a>
+                    <a href="placement.html" class="quick-link-btn">
+                        <i class="fas fa-briefcase"></i> Placement Records
+                    </a>
+                    <a href="research-projects.html" class="quick-link-btn">
+                        <i class="fas fa-flask"></i> Research Projects
+                    </a>
+                    <a href="contact.html" class="quick-link-btn">
+                        <i class="fas fa-envelope"></i> Contact Department
+                    </a>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="about-section">
+                <div class="section-title">
+                    <h2>Department Achievements</h2>
+                </div>
+                
+                <div class="content-box">
+                    <h3><i class="fas fa-trophy"></i> Recognition & Awards</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--secondary);">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">NAAC A Grade</h4>
+                            <p>College accredited with 'A' grade by NAAC in 2021</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--secondary);">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">NBA Accreditation</h4>
+                            <p>B.Tech IT program accredited by NBA multiple times</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--secondary);">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Research Publications</h4>
+                            <p>50+ research papers published by faculty in reputed journals</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--secondary);">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">Student Achievements</h4>
+                            <p>Awards in national and international technical competitions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="width: 50px; height: 50px; background: var(--secondary); border-radius: 5px; margin-right: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <img src="images/logo.png" alt="EASA Logo" style="max-width: 100%; max-height: 100%;" onerror="this.parentElement.innerHTML='EASA'; this.parentElement.style.color='white'; this.parentElement.style.fontWeight='bold';">
+                        </div>
+                        <h3 style="margin-bottom: 0;">Department of IT</h3>
+                    </div>
+                    <p>EASA College of Engineering & Technology<br>
+                    Navakkarai, Coimbatore - 641105<br>
+                    Tamil Nadu, India</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Department</a></li>
+                        <li><a href="academic-calendar.html">Academic Calendar</a></li>
+                        <li><a href="faculty.html">Faculty</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Academics</h3>
+                    <ul>
+                        <li><a href="curriculum.html">Curriculum</a></li>
+                        <li><a href="regulations.html">Regulations</a></li>
+                        <li><a href="timetable.html">Timetable</a></li>
+                        <li><a href="placement.html">Placement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +91 9843682583</li>
+                        <li><i class="fas fa-envelope"></i> hod.it@ecetonline.com</li>
+                        <li><i class="fas fa-globe"></i> www.easacollege.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9 AM - 5 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Department of Information Technology, EASA College of Engineering & Technology. All Rights Reserved.</p>
+                <p>Designed and Developed by Department of IT, EASA CET</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close menu when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+        
+        // Handle dropdowns on mobile
+        if (window.innerWidth <= 768) {
+            const dropdownToggles = document.querySelectorAll('.dropdown > a, .sub-dropdown > a');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const parent = toggle.parentElement;
+                        parent.classList.toggle('active');
+                        
+                        // Close other dropdowns
+                        dropdownToggles.forEach(otherToggle => {
+                            if (otherToggle !== toggle) {
+                                otherToggle.parentElement.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship - Placement - Department of IT - EASA CET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #1ABC9C;
+            --accent: #E74C3C;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .top-bar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar span {
+            margin-right: 10px;
+        }
+        
+        .top-bar i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .top-bar span {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+        
+        .main-nav {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .logo-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--light);
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 5px;
+            margin-right: 15px;
+           
+        }
+        
+        .logo-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            margin-left: -5px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+        }
+        
+        .logo-text p {
+          font-size: 0.8rem;
+            color: var(--gray);
+
+        }
+        
+         /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-menu > li {
+            position: relative;
+            margin-left: 3px;
+        }
+        
+        .nav-menu > li > a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 400;
+            padding: 8px 8px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .nav-menu > li > a:hover,
+        .nav-menu > li > a.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .nav-menu i {
+            margin-right: 8px;
+        }
+        
+        /* Dropdown Menus */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▾';
+            margin-left: 8px;
+            font-size: 0.9em;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 240px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        /* Sub-dropdown */
+        .sub-dropdown {
+            position: relative;
+        }
+        
+        .sub-dropdown-toggle::after {
+            content: '▸';
+            float: right;
+            margin-left: 10px;
+        }
+        
+        .sub-dropdown-menu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+        
+        .sub-dropdown:hover .sub-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+
+        
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.95)), url('internship_hero.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Internship Specific Styles */
+        .internship-content {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Year Tabs */
+        .year-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .year-tab {
+            padding: 12px 30px;
+            background-color: var(--light);
+            border: 2px solid var(--secondary);
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .year-tab i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .year-tab:hover,
+        .year-tab.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .year-tab:hover i,
+        .year-tab.active i {
+            color: var(--white);
+        }
+        
+        /* Year Content Sections */
+        .year-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .year-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Internship Programs */
+        .internship-programs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .internship-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .internship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .internship-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .internship-header i {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        .internship-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .internship-duration {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .internship-content-section {
+            padding: 25px;
+        }
+        
+        .internship-details {
+            margin-bottom: 20px;
+        }
+        
+        .internship-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .internship-details i {
+            color: var(--secondary);
+            margin-right: 10px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .skill-tag {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .stipend-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Statistics */
+        .stats-section {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            padding: 20px;
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stat-card p {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Company Partners */
+        .companies-section {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        
+        .companies-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .companies-table th {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .companies-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .companies-table tr:hover {
+            background-color: rgba(26, 188, 156, 0.05);
+        }
+        
+        /* Success Stories */
+        .success-stories-section {
+            margin: 50px 0;
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .story-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .student-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .student-details h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .student-details p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Application Process */
+        .process-section {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            position: relative;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background-color: var(--secondary);
+            z-index: 1;
+        }
+        
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            border: 3px solid var(--secondary);
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+        
+        .step h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: var(--secondary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        
+        .download-btn:hover {
+            background-color: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 140px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                padding: 20px;
+                max-height: calc(100vh - 140px);
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu > li {
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            
+            .nav-menu > li > a {
+                padding: 15px;
+                width: 100%;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.03);
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .sub-dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.02);
+                margin-left: 20px;
+            }
+            
+            .sub-dropdown.active .sub-dropdown-menu {
+                display: block;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .year-tabs {
+                gap: 10px;
+            }
+            
+            .year-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .internship-programs {
+                grid-template-columns: 1fr;
+            }
+            
+            .companies-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .process-steps::before {
+                display: none;
+            }
+            
+            .dropdown-toggle::after,
+            .sub-dropdown-toggle::after {
+                float: right;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .year-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .year-tab {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-btn {
+                padding: 12px 20px;
+                margin: 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="college-info">
+                    <span><i class="fas fa-university"></i> EASA College of Engineering & Technology</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</span>
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 9843682583</span>
+                    <span><i class="fas fa-envelope"></i> hod.it@ecetonline.com</span>
+                </div>
+            </div>
+        </div>
+        
+       <nav class="main-nav">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="EASA College Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>EASA College of Engineering & Technology</h1>
+                        <p><strong>An Autonomous and NAAC A accredited Institution</strong></p>
+                    </div>
+                </a>
+
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    
+                    <!-- Academics Dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-graduation-cap"></i> Academics</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="academic-calendar.html"><i class="fas fa-calendar-alt"></i> Academic Calendar</a></li>
+                            <li><a href="timetable.html"><i class="fas fa-clock"></i> Timetable</a></li>
+                            <li><a href="curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+                            <li><a href="regulations.html"><i class="fas fa-file-alt"></i> Regulations</a></li>
+                            <li><a href="bos.html"><i class="fas fa-users"></i> BoS</a></li>
+                            <li><a href="cdc-minutes.html"><i class="fas fa-file-contract"></i> CDC Minutes</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Placement Dropdown (Active) -->
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-briefcase"></i> Placement</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="training.html"><i class="fas fa-chalkboard-teacher"></i> Training</a></li>
+                            <li><a href="internship.html" class="active"><i class="fas fa-laptop-code"></i> Internship</a></li>
+                            <li><a href="placement.html"><i class="fas fa-user-tie"></i> Placement</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- IT-SPARK HUB Dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-users"></i> IT-SPARK HUB</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="association-activities.html"><i class="fas fa-calendar-check"></i> Association Activities</a></li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-newspaper"></i> Newsletter (The Spark)</a>
+                                <ul class="sub-dropdown-menu">
+                                     <li><a href="newsletter.html">Vol.1 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.1 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 2</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-book-open"></i> Magazine (Sparkles)</a>
+                                <ul class="sub-dropdown-menu">
+                                     <li><a href="magazine.html">Vol.1 AY 2023-24</a></li>
+                                    <li><a href="magazine.html">Vol.2 AY 2024-25</a></li>
+                                    <li><a href="magazine.html">Vol.3 AY 2025-26</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                    <li><a href="laboratories.html"><i class="fas fa-flask"></i> Laboratories</a></li>
+                    <li><a href="contact.html"><i class="fas fa-address-book"></i> Contact</a></li>
+                </ul>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Industry Internship Programs</h1>
+            <p>Real-world experience and industry exposure to bridge the gap between academia and corporate world</p>
+        </div>
+    </section>
+
+    <!-- Internship Content -->
+    <section class="internship-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>Internship Opportunities</h2>
+            </div>
+            
+            <!-- Year Tabs -->
+            <div class="year-tabs">
+                <div class="year-tab active" data-year="2024-25">
+                    <i class="fas fa-calendar-alt"></i> 2024-2025
+                </div>
+                <div class="year-tab" data-year="2023-24">
+                    <i class="fas fa-calendar"></i> 2023-2024
+                </div>
+                <div class="year-tab" data-year="2025-26">
+                    <i class="fas fa-calendar-check"></i> 2025-2026
+                </div>
+            </div>
+            
+            <!-- 2024-2025 Internship Programs -->
+            <div class="year-section active" id="2024-25">
+                <div class="internship-programs">
+                    <!-- Summer Internship 2024 -->
+                    <div class="internship-card">
+                       
+                        <div class="internship-header">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h3>Summer Internship Program 2024</h3>
+                                <div class="internship-duration">Duration: May 2024 - July 2024 (8 weeks)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> TCS, Infosys, Wipro, Cognizant</p>
+                                <p><i class="fas fa-users"></i> <strong>Positions Available:</strong> 45 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Hybrid (Remote + On-site)</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 3rd Year IT Students (CGPA ≥ 7.5)</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Technologies:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Full Stack Development</span>
+                                <span class="skill-tag">Data Analytics</span>
+                                <span class="skill-tag">Cloud Computing</span>
+                                <span class="skill-tag">Machine Learning</span>
+                                <span class="skill-tag">DevOps</span>
+                                <span class="skill-tag">Cybersecurity</span>
+                            </div>
+                            <p style="margin-top: 15px;">Comprehensive summer internship program offering hands-on experience in cutting-edge technologies with industry mentors.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Winter Internship 2024-25 -->
+                    <div class="internship-card">
+                        
+                        <div class="internship-header">
+                            <i class="fas fa-database"></i>
+                            <div>
+                                <h3>Winter Internship 2024-25</h3>
+                                <div class="internship-duration">Duration: Dec 2024 - Jan 2025 (6 weeks)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> Zoho, Freshworks, HCL, Tech Mahindra</p>
+                                <p><i class="fas fa-users"></i> <strong>Positions Available:</strong> 30 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> On-site (Chennai, Bangalore, Coimbatore)</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 2nd & 3rd Year IT Students (CGPA ≥ 7.0)</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Focus Areas:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Database Management</span>
+                                <span class="skill-tag">Web Development</span>
+                                <span class="skill-tag">Mobile App Development</span>
+                                <span class="skill-tag">UI/UX Design</span>
+                                <span class="skill-tag">Software Testing</span>
+                                <span class="skill-tag">IT Support</span>
+                            </div>
+                            <p style="margin-top: 15px;">Intensive winter internship focusing on practical software development and IT operations.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Year-long Internship 2024-25 -->
+                    <div class="internship-card">
+                        
+                        <div class="internship-header">
+                            <i class="fas fa-laptop-code"></i>
+                            <div>
+                                <h3>Year-long Internship 2024-25</h3>
+                                <div class="internship-duration">Duration: June 2024 - May 2025</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> Startup Companies & SMEs</p>
+                                <p><i class="fas fa-users"></i> <strong>Positions Available:</strong> 25 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Flexible (Part-time during semesters)</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 2nd, 3rd & 4th Year IT Students</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Opportunities:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Project Management</span>
+                                <span class="skill-tag">Product Development</span>
+                                <span class="skill-tag">Quality Assurance</span>
+                                <span class="skill-tag">Technical Writing</span>
+                                <span class="skill-tag">Research & Development</span>
+                                <span class="skill-tag">Entrepreneurship</span>
+                            </div>
+                            <p style="margin-top: 15px;">Extended internship program offering continuous learning and project experience throughout the academic year.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Company Partners 2024-25 -->
+                <div class="companies-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center;">
+                        <i class="fas fa-handshake" style="margin-right: 10px; color: var(--secondary);"></i>
+                        Company Partners 2024-2025
+                    </h3>
+                    <table class="companies-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Positions</th>
+                                <th>Stipend Range</th>
+                                <th>Duration</th>
+                                <th>Application Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>TCS</strong></td>
+                                <td>Software Development Intern</td>
+                                <td>₹20,000 - ₹25,000</td>
+                                <td>8 weeks</td>
+                                <td>March 31, 2024</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Infosys</strong></td>
+                                <td>Data Analyst Intern</td>
+                                <td>₹18,000 - ₹22,000</td>
+                                <td>8 weeks</td>
+                                <td>March 15, 2024</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wipro</strong></td>
+                                <td>Cloud Intern</td>
+                                <td>₹15,000 - ₹20,000</td>
+                                <td>6 weeks</td>
+                                <td>April 15, 2024</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cognizant</strong></td>
+                                <td>DevOps Intern</td>
+                                <td>₹16,000 - ₹21,000</td>
+                                <td>8 weeks</td>
+                                <td>March 31, 2024</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Zoho</strong></td>
+                                <td>Full Stack Developer Intern</td>
+                                <td>₹12,000 - ₹18,000</td>
+                                <td>6 weeks</td>
+                                <td>November 30, 2024</td>
+                            </tr>
+                            <tr>
+                                <td><strong>HCL</strong></td>
+                                <td>Cybersecurity Intern</td>
+                                <td>₹14,000 - ₹19,000</td>
+                                <td>8 weeks</td>
+                                <td>April 30, 2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Internship Statistics 2024-25 -->
+                <div class="stats-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Internship Statistics 2024-2025</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>100+</h3>
+                            <p>Internship Positions</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>85%</h3>
+                            <p>Placement Conversion</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>₹18K</h3>
+                            <p>Average Monthly Stipend</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>25+</h3>
+                            <p>Partner Companies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2023-2024 Internship Programs -->
+            <div class="year-section" id="2023-24">
+                <div class="internship-programs">
+                    <!-- Summer Internship 2023 -->
+                    <div class="internship-card">
+                        
+                        <div class="internship-header">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h3>Summer Internship Program 2023</h3>
+                                <div class="internship-duration">Duration: May 2023 - July 2023 (8 weeks)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> TCS, Infosys, Wipro, Accenture</p>
+                                <p><i class="fas fa-users"></i> <strong>Positions Filled:</strong> 42 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Hybrid (Remote + On-site)</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 3rd Year IT Students (CGPA ≥ 7.5)</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Technologies:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Web Development</span>
+                                <span class="skill-tag">Data Science</span>
+                                <span class="skill-tag">Cloud Technologies</span>
+                                <span class="skill-tag">Mobile Development</span>
+                                <span class="skill-tag">AI/ML</span>
+                                <span class="skill-tag">IoT</span>
+                            </div>
+                            <p style="margin-top: 15px;">Successfully completed internship program with 90% of interns receiving pre-placement offers.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Winter Internship 2023-24 -->
+                    <div class="internship-card">
+                       
+                        <div class="internship-header">
+                            <i class="fas fa-database"></i>
+                            <div>
+                                <h3>Winter Internship 2023-24</h3>
+                                <div class="internship-duration">Duration: Dec 2023 - Jan 2024 (6 weeks)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> Zoho, CTS, Tech Mahindra, Mindtree</p>
+                                <p><i class="fas fa-users"></i> <strong>Positions Filled:</strong> 28 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> On-site</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 2nd & 3rd Year IT Students</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Focus Areas:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Database Systems</span>
+                                <span class="skill-tag">Software Testing</span>
+                                <span class="skill-tag">Frontend Development</span>
+                                <span class="skill-tag">Backend Development</span>
+                                <span class="skill-tag">Network Security</span>
+                                <span class="skill-tag">IT Infrastructure</span>
+                            </div>
+                            <p style="margin-top: 15px;">Hands-on winter internship with focus on practical software development skills.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Research Internship 2023-24 -->
+                    <div class="internship-card">
+                        
+                        <div class="internship-header">
+                            <i class="fas fa-flask"></i>
+                            <div>
+                                <h3>Research Internship 2023-24</h3>
+                                <div class="internship-duration">Duration: Year-round Program</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Organizations:</strong> IITs, NITs, Research Labs</p>
+                                <p><i class="fas fa-users"></i> <strong>Positions Filled:</strong> 15 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Various Institutes</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 3rd & 4th Year IT Students</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Research Areas:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Artificial Intelligence</span>
+                                <span class="skill-tag">Blockchain</span>
+                                <span class="skill-tag">Cybersecurity</span>
+                                <span class="skill-tag">Big Data Analytics</span>
+                                <span class="skill-tag">Quantum Computing</span>
+                                <span class="skill-tag">Robotics</span>
+                            </div>
+                            <p style="margin-top: 15px;">Research-oriented internship program for students interested in academic and industrial research.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Success Stories 2023-24 -->
+                <div class="success-stories-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">Internship Success Stories 2023-2024</h3>
+                    <div class="stories-grid">
+                        <div class="story-card">
+                            <div class="student-info">
+                                <div class="student-avatar">RK</div>
+                                <div class="student-details">
+                                    <h4>Rahul Kumar</h4>
+                                    <p>TCS Software Development Intern</p>
+                                </div>
+                            </div>
+                            <p>"My internship at TCS gave me hands-on experience with enterprise software development. The mentorship and real project exposure helped me secure a full-time offer with ₹8.5 LPA package."</p>
+                            <div class="skills-list" style="margin-top: 15px;">
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Spring Boot</span>
+                                <span class="skill-tag">Microservices</span>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card">
+                            <div class="student-info">
+                                <div class="student-avatar">PS</div>
+                                <div class="student-details">
+                                    <h4>Priya Sharma</h4>
+                                    <p>Infosys Data Science Intern</p>
+                                </div>
+                            </div>
+                            <p>"The data analytics internship at Infosys transformed my understanding of real-world data problems. Working on live datasets and presenting insights to stakeholders was an invaluable experience."</p>
+                            <div class="skills-list" style="margin-top: 15px;">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Machine Learning</span>
+                                <span class="skill-tag">Tableau</span>
+                            </div>
+                        </div>
+                        
+                        <div class="story-card">
+                            <div class="student-info">
+                                <div class="student-avatar">AM</div>
+                                <div class="student-details">
+                                    <h4>Arun Mohan</h4>
+                                    <p>Zoho Full Stack Developer Intern</p>
+                                </div>
+                            </div>
+                            <p>"Interning at Zoho's startup environment taught me rapid prototyping and agile development. I contributed to two production features during my 6-week internship and received a PPO."</p>
+                            <div class="skills-list" style="margin-top: 15px;">
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistics 2023-24 -->
+                <div class="stats-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Internship Achievements 2023-2024</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>95</h3>
+                            <p>Total Internships</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>82%</h3>
+                            <p>PPO Conversion Rate</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>₹16.5K</h3>
+                            <p>Average Stipend</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>20+</h3>
+                            <p>Companies Participated</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2025-2026 Internship Programs -->
+            <div class="year-section" id="2025-26">
+                <div class="internship-programs">
+                    <!-- Future Internship 2025 -->
+                    <div class="internship-card">
+                        
+                        <div class="internship-header">
+                            <i class="fas fa-robot"></i>
+                            <div>
+                                <h3>AI & ML Internship Program 2025</h3>
+                                <div class="internship-duration">Duration: May 2025 - July 2025 (10 weeks)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> Google, Microsoft, Amazon, NVIDIA</p>
+                                <p><i class="fas fa-users"></i> <strong>Expected Positions:</strong> 50 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Hybrid Model</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> 3rd Year IT Students (CGPA ≥ 8.0)</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Emerging Technologies:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Generative AI</span>
+                                <span class="skill-tag">Computer Vision</span>
+                                <span class="skill-tag">Natural Language Processing</span>
+                                <span class="skill-tag">Deep Learning</span>
+                                <span class="skill-tag">Edge AI</span>
+                                <span class="skill-tag">AI Ethics</span>
+                            </div>
+                            <p style="margin-top: 15px;">Cutting-edge internship program focusing on artificial intelligence and machine learning technologies.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Global Internship 2025-26 -->
+                    <div class="internship-card">
+                        
+                        <div class="internship-header">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <h3>Global Internship Program 2025-26</h3>
+                                <div class="internship-duration">Duration: Flexible (3-6 months)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Companies:</strong> International Tech Companies</p>
+                                <p><i class="fas fa-users"></i> <strong>Expected Positions:</strong> 20 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> USA, Europe, Singapore</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> Top 10% of IT Students</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">International Exposure:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Cross-cultural Teams</span>
+                                <span class="skill-tag">Global Projects</span>
+                                <span class="skill-tag">International Standards</span>
+                                <span class="skill-tag">Remote Collaboration</span>
+                                <span class="skill-tag">Foreign Language</span>
+                                <span class="skill-tag">Global Networking</span>
+                            </div>
+                            <p style="margin-top: 15px;">International internship opportunities for exceptional students to gain global work experience.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Entrepreneurship Internship 2025-26 -->
+                    <div class="internship-card">
+                       
+                        <div class="internship-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <div>
+                                <h3>Startup Internship Program 2025-26</h3>
+                                <div class="internship-duration">Duration: Flexible (6-12 months)</div>
+                            </div>
+                        </div>
+                        <div class="internship-content-section">
+                            <div class="internship-details">
+                                <p><i class="fas fa-building"></i> <strong>Organizations:</strong> Tech Startups & Incubators</p>
+                                <p><i class="fas fa-users"></i> <strong>Expected Positions:</strong> 30 students</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Startup Hubs & Incubation Centers</p>
+                                <p><i class="fas fa-graduation-cap"></i> <strong>Eligibility:</strong> Entrepreneurial Mindset</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Startup Experience:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Product Management</span>
+                                <span class="skill-tag">Lean Startup</span>
+                                <span class="skill-tag">Funding & Pitching</span>
+                                <span class="skill-tag">Growth Hacking</span>
+                                <span class="skill-tag">MVP Development</span>
+                                <span class="skill-tag">Business Strategy</span>
+                            </div>
+                            <p style="margin-top: 15px;">Internship program focused on entrepreneurship and startup culture with potential equity participation.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Application Process -->
+                <div class="process-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">Internship Application Process 2025-2026</h3>
+                    <div class="process-steps">
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <h4>Registration</h4>
+                            <p>Register through placement portal with academic details</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h4>Application</h4>
+                            <p>Submit resume, academic records, and project portfolio</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h4>Assessment</h4>
+                            <p>Online tests and technical interviews</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4>Selection</h4>
+                            <p>HR interviews and final selection</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h4>Onboarding</h4>
+                            <p>Offer letter and internship onboarding</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Future Goals -->
+                <div class="companies-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center;">
+                        <i class="fas fa-bullseye" style="margin-right: 10px; color: var(--secondary);"></i>
+                        Future Goals & Initiatives 2025-2026
+                    </h3>
+                    <div class="internship-details">
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Industry Partnerships:</strong> Target 50+ corporate partners</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>International Internships:</strong> Establish global internship programs</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Research Collaborations:</strong> Partner with research institutions</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Startup Ecosystem:</strong> Develop entrepreneurship internship tracks</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Virtual Internships:</strong> Expand remote internship opportunities</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Section -->
+            <div class="download-section">
+                <h3 style="color: var(--primary); margin-bottom: 20px;">Internship Resources</h3>
+                <p style="margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Download internship guides, application templates, and preparation materials to enhance your chances of securing the best internships.
+                </p>
+                <div>
+                    <a href="../downloads/internship-guide-2024.pdf" class="download-btn">
+                        <i class="fas fa-download"></i> Internship Preparation Guide
+                    </a>
+                    <a href="../downloads/resume-templates.zip" class="download-btn">
+                        <i class="fas fa-file-alt"></i> Resume Templates
+                    </a>
+                    <a href="../downloads/company-profiles.pdf" class="download-btn">
+                        <i class="fas fa-building"></i> Company Profiles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Department of IT</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Department</a></li>
+                        <li><a href="faculty.html">Faculty Members</a></li>
+                        <li><a href="laboratories.html">Laboratories</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Academics</h3>
+                    <ul>
+                        <li><a href="curriculum.html">Curriculum</a></li>
+                        <li><a href="timetable.html">Timetable</a></li>
+                        <li><a href="regulations.html">Regulations</a></li>
+                        <li><a href="bos.html">Board of Studies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Placement & Training</h3>
+                    <ul>
+                        <li><a href="training.html">Training Programs</a></li>
+                        <li><a href="internship.html">Internship</a></li>
+                        <li><a href="placement.html">Placement Records</a></li>
+                        <li><a href="../downloads/brochure.pdf">Placement Brochure</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</li>
+                        <li><i class="fas fa-phone"></i> +91 9843682583</li>
+                        <li><i class="fas fa-envelope"></i> hod.it@ecetonline.com</li>
+                        <li><i class="fas fa-globe"></i> www.ecetonline.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Department of Information Technology - EASA College of Engineering & Technology. All Rights Reserved.</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">Designed by IT Department Students | Maintained by Web Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+            this.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
+
+        // Year Tabs Functionality
+        document.querySelectorAll('.year-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and sections
+                document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.year-section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const yearId = this.getAttribute('data-year');
+                document.getElementById(yearId).classList.add('active');
+            });
+        });
+
+        // Mobile Dropdown Toggle
+        document.querySelectorAll('.dropdown-toggle, .sub-dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    parent.classList.toggle('active');
+                    
+                    // Close other dropdowns
+                    document.querySelectorAll('.dropdown, .sub-dropdown').forEach(item => {
+                        if (item !== parent) {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.matches('.dropdown-toggle, .sub-dropdown-toggle, .dropdown-toggle *, .sub-dropdown-toggle *')) {
+                document.querySelectorAll('.dropdown, .sub-dropdown').forEach(item => {
+                    if (window.innerWidth > 768) {
+                        // For desktop, only handle if not hovering
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

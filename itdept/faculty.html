@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty - Department of IT - EASA CET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Copy all CSS from index.html up to the container */
+:root {
+            --primary: #2C3E50;
+            --secondary: #1ABC9C;
+            --accent: #E74C3C;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .top-bar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar span {
+            margin-right: 20px;
+        }
+        
+        .top-bar i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .top-bar span {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+        
+        .main-nav {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8px;
+        }
+	@media (max-width: 768px) {
+   	 .main-nav .container {
+       	 padding: 15px 8px; /* Ensure consistency on mobile */
+   		 }
+	}
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .logo-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--light);
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 5px;
+            margin-right: 15px;
+            
+        }
+        
+        .logo-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            margin-left: 0;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+        }
+        
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-menu > li {
+            position: relative;
+            margin-left: 3px;
+        }
+        
+        .nav-menu > li > a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 400;
+            padding: 8px 8px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .nav-menu > li > a:hover,
+        .nav-menu > li > a.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .nav-menu i {
+            margin-right: 8px;
+        }
+        
+        /* Dropdown Menus */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▾';
+            margin-left: 8px;
+            font-size: 0.9em;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 240px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        /* Sub-dropdown */
+        .sub-dropdown {
+            position: relative;
+        }
+        
+        .sub-dropdown-toggle::after {
+            content: '▸';
+            float: right;
+            margin-left: 10px;
+        }
+        
+        .sub-dropdown-menu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+        
+        .sub-dropdown:hover .sub-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.9)), url('images/computer_lab.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Campus Section */
+        .campus-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .campus-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .campus-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .campus-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .campus-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .campus-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .campus-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .campus-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Mission & Vision */
+        .mission-vision {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .vm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .vm-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .vm-card h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .vm-card i {
+            margin-right: 10px;
+            color: var(--secondary);
+            font-size: 1.2em;
+        }
+        
+        /* PEOs & PSOs */
+        .peo-psos {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .peo-psos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+        
+        .peo-card, .pso-card {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .peo-card::before, .pso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+        }
+        
+        .peo-card h3, .pso-card h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .peo-card i, .pso-card i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .peo-list, .pso-list {
+            list-style: none;
+        }
+        
+        .peo-list li, .pso-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .peo-list li::before, .pso-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        /* Stats */
+        .stats {
+            padding: 60px 0;
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stat-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Quick Links */
+        .quick-links {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .link-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+        
+        .link-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .link-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .nav-menu > li > a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .vm-grid, .peo-psos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .hero h3 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 140px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                padding: 20px;
+                max-height: calc(100vh - 140px);
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu > li {
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            
+            .nav-menu > li > a {
+                padding: 15px;
+                width: 100%;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.03);
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .sub-dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.02);
+                margin-left: 20px;
+            }
+            
+            .sub-dropdown.active .sub-dropdown-menu {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h3 {
+                font-size: 1.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .logo-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .dropdown-toggle::after,
+            .sub-dropdown-toggle::after {
+                float: right;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero h3 {
+                font-size: 1.3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .vm-grid, .peo-psos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Then add faculty-specific styles: */
+        
+        .faculty-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .faculty-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .faculty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .faculty-img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 30px auto 20px;
+    overflow: hidden;
+    border: 5px solid var(--secondary);
+    background-color: var(--light);
+}
+
+.faculty-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* HoD special border */
+.hod-card .faculty-img {
+    border-color: var(--primary);
+    border-width: 6px;
+}
+
+/* Adjust card padding for circular images */
+.faculty-card {
+    text-align: center;
+    padding-top: 0;
+}
+
+.faculty-info {
+    padding: 20px 25px 30px;
+}
+        
+        
+        
+        .faculty-info h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .faculty-info .designation {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .faculty-info .qualification {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .faculty-contact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .faculty-contact p {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .faculty-contact i {
+            margin-right: 10px;
+            color: var(--secondary);
+            width: 20px;
+        }
+        
+        /* HoD Special Card */
+        .hod-card {
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+        
+        .hod-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Same as index.html -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="college-info">
+                    <span><i class="fas fa-university"></i> EASA College of Engineering & Technology</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</span>
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 9843682583</span>
+                    <span><i class="fas fa-envelope"></i> hod.it@ecetonline.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="EASA College Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>EASA College of Engineering & Technology</h1>
+                        <p><strong>An Autonomous and NAAC A accredited Institution</strong></p>
+                    </div>
+                </a>
+                
+              <ul class="nav-menu" id="navMenu">
+    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+    
+    <!-- Academics Dropdown -->
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle"><i class="fas fa-graduation-cap"></i> Academics</a>
+        <ul class="dropdown-menu">
+            <li><a href="academic-calendar.html"><i class="fas fa-calendar-alt"></i> Academic Calendar</a></li>
+            <li><a href="timetable.html"><i class="fas fa-clock"></i> Timetable</a></li>
+            <li><a href="curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+            <li><a href="regulations.html"><i class="fas fa-file-alt"></i> Regulations</a></li>
+            <li><a href="bos.html"><i class="fas fa-users"></i> BoS</a></li>
+            <li><a href="cdc-minutes.html"><i class="fas fa-file-contract"></i> CDC Minutes</a></li>
+        </ul>
+    </li>
+    
+    <!-- Placement Dropdown -->
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle"><i class="fas fa-briefcase"></i> Placement</a>
+        <ul class="dropdown-menu">
+            <li><a href="placement-training.html"><i class="fas fa-chalkboard-teacher"></i> Training</a></li>
+            <li><a href="placement-internship.html"><i class="fas fa-laptop-code"></i> Internship</a></li>
+            <li><a href="placement.html"><i class="fas fa-user-tie"></i> Placement</a></li>
+        </ul>
+    </li>
+    
+    <!-- IT-SPARK HUB Dropdown -->
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle"><i class="fas fa-users"></i> IT-SPARK HUB</a>
+        <ul class="dropdown-menu">
+            <li><a href="association-activities.html"><i class="fas fa-calendar-check"></i> Association Activities</a></li>
+            <li class="sub-dropdown">
+                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-newspaper"></i> Newsletter (The Spark)</a>
+                <ul class="sub-dropdown-menu">
+                     <li><a href="newsletter.html">Vol.1 Issue 1</a></li>
+                     <li><a href="newsletter.html">Vol.1 Issue 2</a></li>
+                     <li><a href="newsletter.html">Vol.2 Issue 1</a></li>
+                     <li><a href="newsletter.html">Vol.2 Issue 2</a></li>
+                     <li><a href="newsletter.html">Vol.3 Issue 1</a></li>
+                     <li><a href="newsletter.html">Vol.3 Issue 2</a></li>
+                </ul>
+            </li>
+            <li class="sub-dropdown">
+                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-book-open"></i> Magazine (Sparkles)</a>
+                <ul class="sub-dropdown-menu">
+                     <li><a href="magazine.html">Vol.1 AY 2023-24</a></li>
+                                    <li><a href="magazine.html">Vol.2 AY 2024-25</a></li>
+                                    <li><a href="magazine.html">Vol.3 AY 2025-26</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    
+    <!-- Faculty link (active) -->
+    <li><a href="faculty.html" class="active"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+    <li><a href="laboratories.html"><i class="fas fa-flask"></i> Laboratories</a></li>
+    <li><a href="contact.html"><i class="fas fa-address-book"></i> Contact</a></li>
+</ul>
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Faculty Section -->
+    <section class="faculty-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Faculty</h2>
+                
+            </div>
+            
+            <div class="faculty-grid">
+                <!-- HoD -->
+                <div class="faculty-card hod-card">
+                   
+                    <div class="faculty-img">
+                        <!-- Profile Picture -->
+        <img src="images/hod-profile.jpg" alt="Dr. B. Syed Moinuddin Bokhari" 
+             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍🏫</text></svg>'; this.style.width=%22100px%22; this.style.height=%22100px%22">
+
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Dr. B. Syed Moinuddin Bokhari</h3>
+                        <div class="designation">Professor & Head of Department</div>
+ <a href="C:/dr-bokhari-website/index.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">Ph.D. in Information and Communication Engineering</div>
+                        <p>Specialization in AIML, Wireless communications and IoT</p>
+                        <div class="faculty-contact">
+                            <p style="text-align: left; display: flex; align-items: flex-start;">
+    <i class="fas fa-envelope" style="margin-right: 10px; margin-top: 2px;"></i> 
+    syed.mb@ecetonline.com, hod.it@ecetonline.com
+</p>
+                            <p><i class="fas fa-phone"></i> +91 98436 82583</p>
+                            <p><i class="fas fa-graduation-cap"></i> 23+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Associate Professors -->
+                <div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Dr. Senoj Joseph</h3>
+                        <div class="designation">Associate Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">Ph.D. in Information and Communication Engineering</div>
+ 
+                        <p>Specialization in Deep learning & Wireless Networks</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> senojjoseph@ecetonline.com</p>
+                            <p><i class="fas fa-phone"></i> +91 98765 XXXXX</p>
+                            <p><i class="fas fa-graduation-cap"></i> 18+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Dr. Anitha G</h3>
+                        <div class="designation">Associate Professor</div>
+ <a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">Ph.D. in Information and Communication Engineering</div>
+
+                        <p>Specialization in AIML & Cloud Computing</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> anitha.g@ecetonline.com</p>
+                            <p><i class="fas fa-phone"></i> +91 98765 XXXXX</p>
+                            <p><i class="fas fa-graduation-cap"></i> 16+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Assistant Professors - Add remaining 8 faculty members similarly -->
+                <div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Mrs. R. Mahalakshmi</h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.E. in Computer Science Engineering </div>
+ 
+                        <p>Specialization in Web Technologies and Software testing</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> mahalakshmi.r@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 16+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+ 		<div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Mr.K.J. Dineshbabu</h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.E. in Computer science Engineering</div>
+ 
+                        <p>Specialization in Computer Networks and Operating Systems</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> dineshbabu.k.j@ecetonline.com.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 18+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Mrs. V.Greeshma </h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.Tech. in Applied Electronics</div>
+ 
+                        <p>Specialization in Digital Design and IoT systems</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> greeshma.v@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 3+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+<div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+ <div class="faculty-info">
+                        <h3>Mrs. N.Amutha </h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.Tech. in Computer Science and Engineering</div>
+ 
+                        <p>Specialization in Full Stack Development and Theory of Computers </p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> amutha.n@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 10+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+<div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+ <div class="faculty-info">
+                        <h3>Mr. S.Suryajith</h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.Tech. in Biomedical Instrumentation</div>
+ 
+                        <p>Specialization in Data structures and Algorithms</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> suryajith.s@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 2+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+<div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+ <div class="faculty-info">
+                        <h3>Ms. Sangeetha poorani </h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.Tech. in Computer Science and Engineering</div>
+ 
+                        <p>Specialization in Cloud computing</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> sangeethapoorani@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 3+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+<div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+ <div class="faculty-info">
+                        <h3>Mrs. K.Shamini </h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.Tech. in Computer Science and Engineering</div>
+ 
+                        <p>Specialization in Distributed Computing and Cybersecurity</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> shamini.k@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 3+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+<div class="faculty-card">
+                    <div class="faculty-img">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+ <div class="faculty-info">
+                        <h3>Ms. P.Ilakkiya</h3>
+                        <div class="designation">Assistant Professor</div>
+<a href="profile.html" class="btn btn-primary mt-2">
+        <i class="fas fa-user me-1"></i> View Profile
+    </a>
+                        <div class="qualification">M.Tech. in Computer Science and Engineering</div>
+ 
+                        <p>Specialization in Virtualization and Devops</p>
+                        <div class="faculty-contact">
+                            <p><i class="fas fa-envelope"></i> ilakkiya.p@ecetonline.com</p>
+                            <p><i class="fas fa-graduation-cap"></i> 3+ Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Add remaining faculty cards here -->
+                
+            </div>
+            
+            <!-- Faculty Statistics -->
+            <div class="stats" style="margin-top: 60px;">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>11</h3>
+                            <p>Faculty Members</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>3</h3>
+                            <p>Doctorates</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>50+</h3>
+                            <p>Research Publications</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>18+</h3>
+                            <p>Years Average Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Same as index.html -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="width: 50px; height: 50px; background: var(--secondary); border-radius: 5px; margin-right: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <img src="images/logo.png" alt="EASA Logo" style="max-width: 100%; max-height: 100%;">
+                        </div>
+                        <h3 style="margin-bottom: 0;">Department of IT</h3>
+                    </div>
+                    <p>EASA College of Engineering & Technology<br>
+                    Navakkarai, Coimbatore - 641105<br>
+                    Tamil Nadu, India</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Department</a></li>
+                        <li><a href="academics.html">Academics</a></li>
+                        <li><a href="faculty.html">Faculty</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Academics</h3>
+                    <ul>
+                        <li><a href="academic-calendar-2024-25.html">Academic Calendar</a></li>
+                        <li><a href="curriculum-r2024.html">Curriculum</a></li>
+                        <li><a href="timetable-2024-25.html">Timetable</a></li>
+                        <li><a href="placement.html">Placement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +91 9843682583</li>
+                        <li><i class="fas fa-envelope"></i> hod.it@ecetonline.com</li>
+                        <li><i class="fas fa-globe"></i> www.easacollege.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9 AM - 5 PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Department of Information Technology, EASA College of Engineering & Technology. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Copy JavaScript from index.html
+    </script>
+</body>
+</html>
