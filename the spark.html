@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Spark | Newsletter - Department of IT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #E74C3C;
+            --accent: #3498DB;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --white: #FFFFFF;
+            --spark-red: #E74C3C;
+            --spark-blue: #3498DB;
+            --spark-yellow: #F1C40F;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            line-height: 1.6; 
+            color: var(--dark); 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .newsletter-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .header-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header-title h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .header-title h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+        
+        .header-title p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* PDF Book Container */
+        .pdf-book-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 700px;
+            margin: 0 auto 40px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-radius: 5px;
+            overflow: hidden;
+            background: #333;
+        }
+        
+        /* Book Viewer */
+        #book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            perspective: 1500px;
+            background: #333;
+        }
+        
+        /* Hard Cover */
+        .hardcover_front, .hardcover_back {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--spark-red) 0%, #c0392b 100%);
+            z-index: 100;
+            transform-origin: 0% 50%;
+            transition: transform 1s ease;
+        }
+        
+        .hardcover_front {
+            left: 0;
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset 20px 0 50px rgba(0,0,0,0.3);
+        }
+        
+        .hardcover_back {
+            right: 0;
+            border-radius: 0 5px 5px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);
+        }
+        
+        /* Book Pages */
+        .page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: white;
+            transform-origin: 0% 50%;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .page .front, .page .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+        
+        .page .back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Page Numbers */
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .front .page-number {
+            right: 20px;
+        }
+        
+        .back .page-number {
+            left: 20px;
+        }
+        
+        /* Page Content */
+        .page-content {
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        /* Cover Pages */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+            color: white;
+        }
+        
+        .spark-logo {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .spark-logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: var(--spark-red);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        
+        .spark-logo .subtitle {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .issue-info {
+            margin-top: 30px;
+        }
+        
+        .issue-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .issue-info h3 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .issue-info p {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        /* Inside Pages Styling */
+        .page-header {
+            background: var(--spark-red);
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        .page-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+        }
+        
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .article-card {
+            background: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .article-image {
+            height: 180px;
+            background-color: var(--spark-blue);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 15px;
+        }
+        
+        .article-category {
+            background: var(--spark-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .article-content {
+            padding: 20px;
+        }
+        
+        .article-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .article-excerpt {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        
+        .faculty-spotlight {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--spark-blue);
+        }
+        
+        .faculty-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 25px;
+            flex-shrink: 0;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .student-project {
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .event-calendar {
+            margin-top: 30px;
+        }
+        
+        .event-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .event-date {
+            width: 70px;
+            height: 70px;
+            background: var(--spark-red);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        /* Navigation Controls */
+        .book-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .control-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: var(--spark-red);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .control-btn:disabled:hover {
+            background: white;
+            color: var(--primary);
+            transform: none;
+        }
+        
+        .page-counter {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        /* Thumbnail Navigation */
+        .thumbnail-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 100px;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .thumbnail.active {
+            border: 3px solid var(--spark-red);
+            transform: translateY(-5px);
+        }
+        
+        .thumbnail-page {
+            font-size: 0.8rem;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        /* Settings Panel */
+        .settings-panel {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .settings-title {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .settings-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .setting-btn {
+            background: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .setting-btn:hover {
+            background: var(--spark-red);
+            color: white;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .pdf-book-container {
+                height: 600px;
+            }
+            
+            .header-title h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .pdf-book-container {
+                height: 500px;
+            }
+            
+            .header-title h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-title h2 {
+                font-size: 1.2rem;
+            }
+            
+            .page-content {
+                padding: 25px;
+            }
+            
+            .spark-logo {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .spark-logo h1 {
+                font-size: 2.2rem;
+            }
+            
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .faculty-spotlight {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .book-controls {
+                gap: 15px;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 80px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .pdf-book-container {
+                height: 400px;
+            }
+            
+            .header-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-content {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+            
+            .page-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* Page Shadow Effect */
+        .page-shadow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <h2 style="color: white; font-family: 'Montserrat', sans-serif;">Loading The Spark Newsletter...</h2>
+    </div>
+    
+    <div class="newsletter-container">
+        <div class="header-title">
+            <h1>THE SPARK</h1>
+            <h2>Department of Information Technology</h2>
+            <p>EASA College of Engineering & Technology</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">Interactive Digital Newsletter - Flip to Read</p>
+        </div>
+        
+        <!-- PDF Book Container -->
+        <div class="pdf-book-container">
+            <div id="book">
+                <!-- Front Hard Cover -->
+                <div class="hardcover_front" id="hardcover_front">
+                    <div class="page-content cover-page">
+                        <div class="spark-logo">
+                            <h1>THE</h1>
+                            <h1>SPARK</h1>
+                            <div class="subtitle">IT DEPARTMENT</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page 1-2 -->
+                <div class="page" id="page1">
+                    <div class="front">
+                        <div class="page-content cover-page">
+                            <div class="spark-logo">
+                                <h1>THE</h1>
+                                <h1>SPARK</h1>
+                                <div class="subtitle">IT DEPARTMENT</div>
+                            </div>
+                            
+                            <div class="issue-info">
+                                <h2>NEWSLETTER</h2>
+                                <h3>VOL. 3 ISSUE 2</h3>
+                                <p>January - March 2025</p>
+                                <p>Igniting Innovation, Inspiring Minds</p>
+                            </div>
+                            
+                            <div style="margin-top: 40px; font-size: 0.9rem; opacity: 0.8;">
+                                <p>Department of Information Technology</p>
+                                <p>EASA College of Engineering & Technology</p>
+                                <p>Navakkarai, Coimbatore - 641105</p>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 1</div>
+                    </div>
+                    <div class="back">
+                        <div class="page-content">
+                            <div class="page-header">
+                                <h2>From the HOD's Desk</h2>
+                            </div>
+                            
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 30px;">
+                                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #3498db, #2c3e50); border-radius: 50%; margin-right: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: bold;">RK</div>
+                                <div>
+                                    <h3 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">Dr. R. Kumar</h3>
+                                    <p style="color: var(--spark-red); font-weight: 600; margin-bottom: 15px;">Head of Department</p>
+                                    <p style="line-height: 1.7;">Welcome to the third volume of our department newsletter, "The Spark". This quarter has been remarkable with our students achieving new heights in academics, research, and co-curricular activities.</p>
+                                    <p style="line-height: 1.7; margin-top: 15px;">Our department secured 3 new research grants and published 8 papers in reputed journals. The placement season saw 92% of our final year students placed in top companies with record-breaking packages.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 30px; border-left: 4px solid var(--spark-blue);">
+                                <h4 style="color: var(--primary); margin-bottom: 15px; font-family: 'Montserrat', sans-serif;">Quote of the Quarter</h4>
+                                <p style="font-style: italic; font-size: 1.1rem; color: #555; text-align: center;">"Technology is best when it brings people together. In our department, we're not just teaching code, we're building futures."</p>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 2</div>
+                    </div>
+                </div>
+                
+                <!-- Page 3-4 -->
+                <div class="page" id="page2">
+                    <div class="front">
+                        <div class="page-content">
+                            <div class="page-header">
+                                <h2>Research & Innovation</h2>
+                            </div>
+                            
+                            <div class="article-grid">
+                                <div class="article-card">
+                                    <div class="article-image" style="background: linear-gradient(to right, #3498db, #2c3e50);">
+                                        <span class="article-category">AI Research</span>
+                                    </div>
+                                    <div class="article-content">
+                                        <h3 class="article-title">Early Disease Detection Using AI</h3>
+                                        <p class="article-excerpt">Our research team developed a machine learning model that can detect early signs of cardiovascular diseases with 94% accuracy using retinal images.</p>
+                                        <div class="article-meta">
+                                            <span>Dr. M. Priya</span>
+                                            <span>Mar 15, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="article-card">
+                                    <div class="article-image" style="background: linear-gradient(to right, #e74c3c, #c0392b);">
+                                        <span class="article-category">Cyber Security</span>
+                                    </div>
+                                    <div class="article-content">
+                                        <h3 class="article-title">Blockchain Voting System</h3>
+                                        <p class="article-excerpt">Students developed a tamper-proof voting system using blockchain technology, ensuring transparency and security in electoral processes.</p>
+                                        <div class="article-meta">
+                                            <span>Team CryptoVote</span>
+                                            <span>Feb 22, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: linear-gradient(to right, #e3f2fd, #bbdefb); padding: 20px; border-radius: 8px; margin-top: 30px;">
+                                <h4 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">Research Grants Secured</h4>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+                                    <div style="background: white; padding: 15px; border-radius: 5px;">
+                                        <strong style="color: var(--spark-red);">₹25 Lakhs</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">DST - AI in Healthcare</p>
+                                    </div>
+                                    <div style="background: white; padding: 15px; border-radius: 5px;">
+                                        <strong style="color: var(--spark-red);">₹15 Lakhs</strong>
+                                        <p style="font-size: 0.9rem; margin-top: 5px;">AICTE - IoT for Agriculture</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 3</div>
+                    </div>
+                    <div class="back">
+                        <div class="page-content">
+                            <div class="page-header">
+                                <h2>Faculty Spotlight</h2>
+                            </div>
+                            
+                            <div class="faculty-spotlight">
+                                <div class="faculty-photo" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: bold;">SR</div>
+                                <div class="faculty-info">
+                                    <h3>Dr. S. Rajan</h3>
+                                    <div class="designation">Professor & Research Coordinator</div>
+                                    <p>Dr. Rajan recently published a paper on "Quantum-resistant Cryptography" in IEEE Transactions. He also secured a patent for his work on secure communication protocols. Under his guidance, 5 PhD scholars are working on cutting-edge cybersecurity research.</p>
+                                    <p style="margin-top: 10px; font-style: italic; color: #555;">"The future belongs to those who prepare for it today. Cybersecurity is not just about technology, it's about trust."</p>
+                                </div>
+                            </div>
+                            
+                            <div class="page-header" style="margin-top: 40px;">
+                                <h2>Publications</h2>
+                            </div>
+                            
+                            <div style="margin-top: 20px;">
+                                <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee;">
+                                    <div>
+                                        <strong>IEEE Transactions on AI</strong>
+                                        <p style="font-size: 0.9rem; color: #666;">Quantum Computing Applications</p>
+                                    </div>
+                                    <div style="color: var(--spark-red); font-weight: 600;">Dr. S. Rajan</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee;">
+                                    <div>
+                                        <strong>ACM Computing Surveys</strong>
+                                        <p style="font-size: 0.9rem; color: #666;">Blockchain in Healthcare</p>
+                                    </div>
+                                    <div style="color: var(--spark-red); font-weight: 600;">Dr. M. Priya</div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 15px;">
+                                    <div>
+                                        <strong>Springer AI Review</strong>
+                                        <p style="font-size: 0.9rem; color: #666;">Ethical AI Frameworks</p>
+                                    </div>
+                                    <div style="color: var(--spark-red); font-weight: 600;">Dr. R. Kumar</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 4</div>
+                    </div>
+                </div>
+                
+                <!-- Page 5-6 -->
+                <div class="page" id="page3">
+                    <div class="front">
+                        <div class="page-content">
+                            <div class="page-header">
+                                <h2>Student Achievements</h2>
+                            </div>
+                            
+                            <div class="student-project">
+                                <h4 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">Smart Agricultural Drone System</h4>
+                                <p>Final year students developed an AI-powered drone system for precision agriculture that can monitor crop health, detect diseases, and optimize irrigation. The project won 1st prize at the National Innovation Challenge 2025.</p>
+                                <p style="margin-top: 10px;"><strong>Team:</strong> Aditya Sharma, Priya Patel, Rohit Kumar, Sneha Nair</p>
+                            </div>
+                            
+                            <div class="student-project">
+                                <h4 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">Mental Health Assistant Chatbot</h4>
+                                <p>A team of third-year students created "MindMate", an AI chatbot that provides mental health support and resources. The project was selected for incubation at the college innovation center.</p>
+                                <p style="margin-top: 10px;"><strong>Team:</strong> Anjali Verma, Vikram Singh, Neha Patel</p>
+                            </div>
+                            
+                            <div class="student-project">
+                                <h4 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">International Coding Competition</h4>
+                                <p>Our students secured 3rd position in the International Collegiate Programming Contest (ICPC) Asia Regional, competing against 200+ teams from across Asia.</p>
+                                <p style="margin-top: 10px;"><strong>Team:</strong> Arjun Mehta, Rohan Sharma, Deepika Nair</p>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 5</div>
+                    </div>
+                    <div class="back">
+                        <div class="page-content">
+                            <div class="page-header">
+                                <h2>Upcoming Events</h2>
+                            </div>
+                            
+                            <div class="event-calendar">
+                                <div class="event-item">
+                                    <div class="event-date">
+                                        <div class="day" style="font-size: 1.8rem; font-weight: 700; line-height: 1;">15</div>
+                                        <div class="month" style="font-size: 0.9rem;">APR</div>
+                                    </div>
+                                    <div class="event-details">
+                                        <h4 style="color: var(--primary); font-size: 1.2rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif;">National Conference on AI & ML</h4>
+                                        <p>Keynote by Dr. A. Sharma from IIT Madras. Paper submissions open till April 10.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="event-item">
+                                    <div class="event-date">
+                                        <div class="day" style="font-size: 1.8rem; font-weight: 700; line-height: 1;">22</div>
+                                        <div class="month" style="font-size: 0.9rem;">APR</div>
+                                    </div>
+                                    <div class="event-details">
+                                        <h4 style="color: var(--primary); font-size: 1.2rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif;">Industry Interaction Day</h4>
+                                        <p>Panel discussion with industry leaders from Google, Microsoft, and Infosys.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="event-item">
+                                    <div class="event-date">
+                                        <div class="day" style="font-size: 1.8rem; font-weight: 700; line-height: 1;">05</div>
+                                        <div class="month" style="font-size: 0.9rem;">MAY</div>
+                                    </div>
+                                    <div class="event-details">
+                                        <h4 style="color: var(--primary); font-size: 1.2rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif;">Hackathon 2025</h4>
+                                        <p>36-hour hackathon focusing on "Technology for Social Good". Prizes worth ₹2 lakhs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="page-header" style="margin-top: 40px;">
+                                <h2>Placement Highlights</h2>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
+                                <div style="background: #e8f6f3; padding: 15px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 1.8rem; font-weight: bold; color: var(--spark-red);">92%</div>
+                                    <div style="font-size: 0.9rem;">Placement Rate</div>
+                                </div>
+                                <div style="background: #fef9e7; padding: 15px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 1.8rem; font-weight: bold; color: var(--spark-red);">₹18 LPA</div>
+                                    <div style="font-size: 0.9rem;">Highest Package</div>
+                                </div>
+                                <div style="background: #eaf2f8; padding: 15px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 1.8rem; font-weight: bold; color: var(--spark-red);">45+</div>
+                                    <div style="font-size: 0.9rem;">Companies Visited</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 6</div>
+                    </div>
+                </div>
+                
+                <!-- Page 7-8 -->
+                <div class="page" id="page4">
+                    <div class="front">
+                        <div class="page-content">
+                            <div class="page-header">
+                                <h2>Department Infrastructure</h2>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+                                <div style="background: #f0f7ff; padding: 20px; border-radius: 8px;">
+                                    <h4 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">Research Labs</h4>
+                                    <ul style="padding-left: 20px; color: #555;">
+                                        <li>AI & Machine Learning Lab</li>
+                                        <li>Cyber Security Research Lab</li>
+                                        <li>IoT & Embedded Systems Lab</li>
+                                        <li>Data Science Center</li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="background: #fff0f0; padding: 20px; border-radius: 8px;">
+                                    <h4 style="color: var(--primary); margin-bottom: 10px; font-family: 'Montserrat', sans-serif;">Facilities</h4>
+                                    <ul style="padding-left: 20px; color: #555;">
+                                        <li>High-Performance Computing</li>
+                                        <li>Cloud Computing Resources</li>
+                                        <li>3D Printing & Prototyping</li>
+                                        <li>Dedicated Research Network</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 30px;">
+                                <h4 style="color: var(--primary); margin-bottom: 15px; font-family: 'Montserrat', sans-serif;">Recent Upgrades</h4>
+                                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid var(--spark-yellow);">
+                                    <p>New NVIDIA DGX Station installed in AI Lab with 4x A100 GPUs for advanced AI research and model training.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="page-header" style="margin-top: 40px;">
+                                <h2>Student Clubs</h2>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+                                <div style="background: linear-gradient(to right, #3498db, #2980b9); color: white; padding: 15px; border-radius: 8px;">
+                                    <h4 style="margin-bottom: 5px;">CodeCrafters</h4>
+                                    <p style="font-size: 0.9rem;">Programming & Competitive Coding</p>
+                                </div>
+                                <div style="background: linear-gradient(to right, #e74c3c, #c0392b); color: white; padding: 15px; border-radius: 8px;">
+                                    <h4 style="margin-bottom: 5px;">CyberShield</h4>
+                                    <p style="font-size: 0.9rem;">Cybersecurity & Ethical Hacking</p>
+                                </div>
+                                <div style="background: linear-gradient(to right, #2ecc71, #27ae60); color: white; padding: 15px; border-radius: 8px;">
+                                    <h4 style="margin-bottom: 5px;">AI Innovators</h4>
+                                    <p style="font-size: 0.9rem;">Machine Learning & AI Research</p>
+                                </div>
+                                <div style="background: linear-gradient(to right, #9b59b6, #8e44ad); color: white; padding: 15px; border-radius: 8px;">
+                                    <h4 style="margin-bottom: 5px;">IoT Pioneers</h4>
+                                    <p style="font-size: 0.9rem;">IoT & Embedded Systems</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-number">Page 7</div>
+                    </div>
+                    <div class="back">
+                        <div class="page-content cover-page" style="background: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);">
+                            <div class="spark-logo" style="background: var(--primary); border: 5px solid var(--spark-yellow);">
+                                <h1 style="color: white;">THE</h1>
+                                <h1 style="color: white;">SPARK</h1>
+                                <div class="subtitle" style="color: var(--spark-yellow);">IT DEPARTMENT</div>
+                            </div>
+                            
+                            <div style="margin-top: 40px; max-width: 500px;">
+                                <h2 style="font-size: 2rem; margin-bottom: 20px;">Stay Connected</h2>
+                                <p style="margin-bottom: 30px; font-size: 1.1rem;">Follow us for the latest updates, events, and achievements from the Department of Information Technology.</p>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 30px;">
+                                    <div style="display: flex; align-items: center; color: white;">
+                                        <i class="fas fa-globe" style="margin-right: 10px; color: var(--spark-yellow);"></i>
+                                        <span>www.ecetonline.com/it</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; color: white;">
+                                        <i class="fas fa-envelope" style="margin-right: 10px; color: var(--spark-yellow);"></i>
+                                        <span>hod.it@ecetonline.com</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; color: white;">
+                                        <i class="fab fa-facebook" style="margin-right: 10px; color: var(--spark-yellow);"></i>
+                                        <span>/EASAITDepartment</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; color: white;">
+                                        <i class="fab fa-linkedin" style="margin-right: 10px; color: var(--spark-yellow);"></i>
+                                        <span>/company/easa-it</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 50px; font-size: 0.9rem; opacity: 0.7; color: white;">
+                                <p>Editorial Board: Dr. R. Kumar (Chief Editor), Prof. S. Rajan, Dr. M. Priya,</p>
+                                <p>Student Editors: Anjali Verma, Arjun Mehta, Priya Patel</p>
+                                <p style="margin-top: 20px;">© 2025 Department of IT, EASA College of Engineering & Technology</p>
+                                <p>All rights reserved.</p>
+                            </div>
+                        </div>
+                        <div class="page-number" style="color: rgba(255,255,255,0.7);">Page 8</div>
+                    </div>
+                </div>
+                
+                <!-- Back Hard Cover -->
+                <div class="hardcover_back" id="hardcover_back"></div>
+            </div>
+        </div>
+        
+        <!-- Navigation Controls -->
+        <div class="book-controls">
+            <button class="control-btn" id="prevPage" disabled>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="page-counter">
+                <span id="currentPage">1</span> / <span id="totalPages">8</span>
+            </div>
+            
+            <button class="control-btn" id="nextPage">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- Thumbnail Navigation -->
+        <div class="thumbnail-nav" id="thumbnailNav">
+            <!-- Thumbnails will be generated by JavaScript -->
+        </div>
+        
+        <!-- Settings Panel -->
+        <div class="settings-panel">
+            <div class="settings-title">Reader Settings</div>
+            <div class="settings-options">
+                <button class="setting-btn" id="fullscreenBtn">
+                    <i class="fas fa-expand"></i>
+                    <span>Fullscreen</span>
+                </button>
+                <button class="setting-btn" id="zoomInBtn">
+                    <i class="fas fa-search-plus"></i>
+                    <span>Zoom In</span>
+                </button>
+                <button class="setting-btn" id="zoomOutBtn">
+                    <i class="fas fa-search-minus"></i>
+                    <span>Zoom Out</span>
+                </button>
+                <button class="setting-btn" id="printBtn">
+                    <i class="fas fa-print"></i>
+                    <span>Print</span>
+                </button>
+                <button class="setting-btn" id="downloadBtn">
+                    <i class="fas fa-download"></i>
+                    <span>Download PDF</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for page to load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    initFlipBook();
+                }, 500);
+            }, 1500);
+        });
+        
+        // Flip Book functionality
+        function initFlipBook() {
+            const book = document.getElementById('book');
+            const pages = document.querySelectorAll('.page');
+            const hardcoverFront = document.getElementById('hardcover_front');
+            const hardcoverBack = document.getElementById('hardcover_back');
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const currentPageSpan = document.getElementById('currentPage');
+            const totalPagesSpan = document.getElementById('totalPages');
+            const thumbnailNav = document.getElementById('thumbnailNav');
+            
+            let currentPage = 0; // 0 = cover closed, 1 = first page, etc.
+            const totalPages = pages.length;
+            const totalDisplayPages = totalPages * 2; // Each page has front and back
+            totalPagesSpan.textContent = totalDisplayPages;
+            
+            // Initialize page positions
+            function initPagePositions() {
+                // Position all pages
+                pages.forEach((page, index) => {
+                    page.style.left = '50%';
+                    page.style.zIndex = (totalPages - index) * 10;
+                });
+                
+                // Position hard covers
+                hardcoverFront.style.zIndex = (totalPages + 1) * 10;
+                hardcoverBack.style.zIndex = 0;
+            }
+            
+            // Create thumbnails
+            function createThumbnails() {
+                thumbnailNav.innerHTML = '';
+                
+                // Add cover thumbnail
+                const coverThumb = document.createElement('div');
+                coverThumb.className = 'thumbnail';
+                coverThumb.innerHTML = '<div style="width:100%;height:100%;background:linear-gradient(135deg, #E74C3C 0%, #c0392b 100%);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:1.2rem;">THE SPARK</div><div class="thumbnail-page">Cover</div>';
+                coverThumb.addEventListener('click', () => goToPage(0));
+                thumbnailNav.appendChild(coverThumb);
+                
+                // Add page thumbnails
+                for (let i = 0; i < totalDisplayPages; i++) {
+                    const thumb = document.createElement('div');
+                    thumb.className = 'thumbnail';
+                    
+                    // Create a simple representation of each page
+                    if (i < 4) {
+                        thumb.style.background = i % 2 === 0 ? '#3498db' : '#e74c3c';
+                    } else {
+                        thumb.style.background = i % 2 === 0 ? '#2ecc71' : '#9b59b6';
+                    }
+                    
+                    thumb.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:1.5rem;">${i + 1}</div><div class="thumbnail-page">${i + 1}</div>`;
+                    
+                    thumb.addEventListener('click', () => goToPage(i + 1));
+                    thumbnailNav.appendChild(thumb);
+                }
+            }
+            
+            // Flip to specific page
+            function goToPage(pageNum) {
+                if (pageNum < 0 || pageNum > totalDisplayPages) return;
+                
+                currentPage = pageNum;
+                updateBook();
+                updateControls();
+                updateThumbnails();
+            }
+            
+            // Update book transformation
+            function updateBook() {
+                // Calculate rotation for each page
+                const maxRotation = 180;
+                
+                // Reset all pages first
+                pages.forEach(page => {
+                    page.style.transform = 'rotateY(0deg)';
+                });
+                
+                // Rotate pages up to current page
+                for (let i = 0; i < currentPage; i++) {
+                    const pageIndex = Math.floor(i / 2);
+                    if (pageIndex < pages.length) {
+                        const page = pages[pageIndex];
+                        const rotation = (i % 2 === 0) ? -maxRotation : maxRotation;
+                        
+                        // Add delay for realistic flip effect
+                        setTimeout(() => {
+                            page.style.transform = `rotateY(${rotation}deg)`;
+                        }, (i * 100));
+                    }
+                }
+                
+                // Update hard covers
+                if (currentPage === 0) {
+                    hardcoverFront.style.transform = 'rotateY(0deg)';
+                } else {
+                    hardcoverFront.style.transform = 'rotateY(-180deg)';
+                }
+                
+                // Update current page display
+                currentPageSpan.textContent = currentPage;
+            }
+            
+            // Update control buttons
+            function updateControls() {
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage === totalDisplayPages;
+            }
+            
+            // Update active thumbnail
+            function updateThumbnails() {
+                const thumbs = document.querySelectorAll('.thumbnail');
+                thumbs.forEach((thumb, index) => {
+                    if (index === currentPage) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Next page function
+            function nextPage() {
+                if (currentPage < totalDisplayPages) {
+                    currentPage++;
+                    updateBook();
+                    updateControls();
+                    updateThumbnails();
+                }
+            }
+            
+            // Previous page function
+            function prevPage() {
+                if (currentPage > 0) {
+                    currentPage--;
+                    updateBook();
+                    updateControls();
+                    updateThumbnails();
+                }
+            }
+            
+            // Event listeners for navigation
+            prevBtn.addEventListener('click', prevPage);
+            nextBtn.addEventListener('click', nextPage);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    nextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    prevPage();
+                }
+            });
+            
+            // Click on book to flip pages
+            book.addEventListener('click', (e) => {
+                const rect = book.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const width = rect.width;
+                
+                // If click on right half, go to next page
+                if (x > width / 2) {
+                    nextPage();
+                } 
+                // If click on left half, go to previous page
+                else {
+                    prevPage();
+                }
+            });
+            
+            // Touch/swipe support
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            book.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            book.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    nextPage();
+                }
+                
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    prevPage();
+                }
+            }
+            
+            // Settings buttons functionality
+            document.getElementById('fullscreenBtn').addEventListener('click', () => {
+                const container = document.querySelector('.pdf-book-container');
+                if (!document.fullscreenElement) {
+                    container.requestFullscreen().catch(err => {
+                        alert(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+            
+            document.getElementById('zoomInBtn').addEventListener('click', () => {
+                const container = document.querySelector('.pdf-book-container');
+                const currentScale = parseFloat(container.style.transform.replace('scale(', '').replace(')', '')) || 1;
+                container.style.transform = `scale(${Math.min(currentScale + 0.1, 2)})`;
+            });
+            
+            document.getElementById('zoomOutBtn').addEventListener('click', () => {
+                const container = document.querySelector('.pdf-book-container');
+                const currentScale = parseFloat(container.style.transform.replace('scale(', '').replace(')', '')) || 1;
+                container.style.transform = `scale(${Math.max(currentScale - 0.1, 0.5)})`;
+            });
+            
+            document.getElementById('printBtn').addEventListener('click', () => {
+                window.print();
+            });
+            
+            document.getElementById('downloadBtn').addEventListener('click', () => {
+                alert('PDF download feature would be implemented with server-side generation. For now, you can print the newsletter as PDF.');
+            });
+            
+            // Initialize everything
+            initPagePositions();
+            createThumbnails();
+            updateControls();
+            updateThumbnails();
+            
+            // Auto open cover after load
+            setTimeout(() => {
+                goToPage(1);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

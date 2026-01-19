@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training - Placement - Department of IT - EASA CET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #1ABC9C;
+            --accent: #E74C3C;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .top-bar {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-bar span {
+            margin-right: 10px;
+        }
+        
+        .top-bar i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .top-bar span {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+        
+        .main-nav {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .main-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .logo-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--light);
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 5px;
+            margin-right: 15px;
+           
+        }
+        
+        .logo-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            margin-left: -5px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+        }
+        
+        .logo-text p {
+          font-size: 0.8rem;
+            color: var(--gray);
+
+        }
+        
+         /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-menu > li {
+            position: relative;
+            margin-left: 3px;
+        }
+        
+        .nav-menu > li > a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 400;
+            padding: 8px 8px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .nav-menu > li > a:hover,
+        .nav-menu > li > a.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .nav-menu i {
+            margin-right: 8px;
+        }
+        
+        /* Dropdown Menus */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▾';
+            margin-left: 8px;
+            font-size: 0.9em;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 240px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            list-style: none;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        /* Sub-dropdown */
+        .sub-dropdown {
+            position: relative;
+        }
+        
+        .sub-dropdown-toggle::after {
+            content: '▸';
+            float: right;
+            margin-left: 10px;
+        }
+        
+        .sub-dropdown-menu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+        }
+        
+        .sub-dropdown:hover .sub-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+
+        
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.95)), url('computer_lab.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .page-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Training Specific Styles */
+        .training-content {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Year Tabs */
+        .year-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .year-tab {
+            padding: 12px 30px;
+            background-color: var(--light);
+            border: 2px solid var(--secondary);
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .year-tab i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .year-tab:hover,
+        .year-tab.active {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .year-tab:hover i,
+        .year-tab.active i {
+            color: var(--white);
+        }
+        
+        /* Year Content Sections */
+        .year-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .year-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Training Programs */
+        .training-programs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .program-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .program-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .program-header i {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        .program-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .program-duration {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .program-content {
+            padding: 25px;
+        }
+        
+        .program-details {
+            margin-bottom: 20px;
+        }
+        
+        .program-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .program-details i {
+            color: var(--secondary);
+            margin-right: 10px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .skill-tag {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        /* Statistics */
+        .stats-section {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            padding: 20px;
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stat-card p {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Training Calendar */
+        .calendar-section {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .calendar-table th {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .calendar-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .calendar-table tr:hover {
+            background-color: rgba(26, 188, 156, 0.05);
+        }
+        
+        /* Training Partners */
+        .partners-section {
+            margin: 50px 0;
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .partner-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .partner-card img {
+            max-width: 100%;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background-color: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: var(--secondary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        
+        .download-btn:hover {
+            background-color: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            opacity: 0.8;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 140px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                padding: 20px;
+                max-height: calc(100vh - 140px);
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu > li {
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            
+            .nav-menu > li > a {
+                padding: 15px;
+                width: 100%;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.03);
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-left: 20px;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .sub-dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                background-color: rgba(0,0,0,0.02);
+                margin-left: 20px;
+            }
+            
+            .sub-dropdown.active .sub-dropdown-menu {
+                display: block;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .year-tabs {
+                gap: 10px;
+            }
+            
+            .year-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .training-programs {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .dropdown-toggle::after,
+            .sub-dropdown-toggle::after {
+                float: right;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .year-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .year-tab {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-btn {
+                padding: 12px 20px;
+                margin: 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="college-info">
+                    <span><i class="fas fa-university"></i> EASA College of Engineering & Technology</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</span>
+                </div>
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 9843682583</span>
+                    <span><i class="fas fa-envelope"></i> hod.it@ecetonline.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-image">
+                        <img src="images/logo.png" alt="EASA College Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>EASA College of Engineering & Technology</h1>
+                        <p><strong>An Autonomous and NAAC A accredited Institution</strong></p>
+                    </div>
+                </a>
+
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    
+                    <!-- Academics Dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-graduation-cap"></i> Academics</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="academic-calendar.html"><i class="fas fa-calendar-alt"></i> Academic Calendar</a></li>
+                            <li><a href="timetable.html"><i class="fas fa-clock"></i> Timetable</a></li>
+                            <li><a href="curriculum.html"><i class="fas fa-book"></i> Curriculum</a></li>
+                            <li><a href="regulations.html"><i class="fas fa-file-alt"></i> Regulations</a></li>
+                            <li><a href="bos.html"><i class="fas fa-users"></i> BoS</a></li>
+                            <li><a href="cdc-minutes.html"><i class="fas fa-file-contract"></i> CDC Minutes</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Placement Dropdown (Active) -->
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-briefcase"></i> Placement</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="placement-training.html" class="active"><i class="fas fa-chalkboard-teacher"></i> Training</a></li>
+                            <li><a href="placement-internship.html"><i class="fas fa-laptop-code"></i> Internship</a></li>
+                            <li><a href="placement.html"><i class="fas fa-user-tie"></i> Placement</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- IT-SPARK HUB Dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><i class="fas fa-users"></i> IT-SPARK HUB</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="association-activities.html"><i class="fas fa-calendar-check"></i> Association Activities</a></li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-newspaper"></i> Newsletter (The Spark)</a>
+                                <ul class="sub-dropdown-menu">
+                                     <li><a href="newsletter.html">Vol.1 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.1 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.2 Issue 2</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 1</a></li>
+                                    <li><a href="newsletter.html">Vol.3 Issue 2</a></li>
+                                </ul>
+                            </li>
+                            <li class="sub-dropdown">
+                                <a href="#" class="sub-dropdown-toggle"><i class="fas fa-book-open"></i> Magazine (Sparkles)</a>
+                                <ul class="sub-dropdown-menu">
+                                    <li><a href="magazine.html">Vol.1 AY 2023-24</a></li>
+                                    <li><a href="magazine.html">Vol.2 AY 2024-25</a></li>
+                                    <li><a href="magazine.html">Vol.3 AY 2025-26</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                    <li><a href="laboratories.html"><i class="fas fa-flask"></i> Laboratories</a></li>
+                    <li><a href="contact.html"><i class="fas fa-address-book"></i> Contact</a></li>
+                </ul>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Placement Training</h1>
+            <p>Comprehensive skill development programs to prepare students for successful careers</p>
+        </div>
+    </section>
+
+    <!-- Training Content -->
+    <section class="training-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>Placement Training Programs</h2>
+            </div>
+            
+            <!-- Year Tabs -->
+            <div class="year-tabs">
+                <div class="year-tab active" data-year="2024-25">
+                    <i class="fas fa-calendar-alt"></i> 2024-2025
+                </div>
+                <div class="year-tab" data-year="2023-24">
+                    <i class="fas fa-calendar"></i> 2023-2024
+                </div>
+                <div class="year-tab" data-year="2025-26">
+                    <i class="fas fa-calendar-check"></i> 2025-2026
+                </div>
+            </div>
+            
+            <!-- 2024-2025 Training Programs -->
+            <div class="year-section active" id="2024-25">
+                <div class="training-programs">
+                    <!-- Program 1 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h3>Technical Skills Training</h3>
+                                <div class="program-duration">Duration: August 2024 - December 2024</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Mr. Rajesh Kumar (TCS)</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 60 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekends, 9 AM - 4 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Skills Covered:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Data Structures</span>
+                                <span class="skill-tag">Algorithms</span>
+                                <span class="skill-tag">Java Programming</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">SQL & Database</span>
+                                <span class="skill-tag">Web Development</span>
+                            </div>
+                            <p style="margin-top: 15px;">Comprehensive training covering fundamental to advanced technical concepts with hands-on coding practice and mock interviews.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Program 2 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <h3>Aptitude & Reasoning</h3>
+                                <div class="program-duration">Duration: July 2024 - November 2024</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Ms. Priya Sharma (Career Launcher)</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 80 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekdays, 4 PM - 6 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Topics Covered:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Quantitative Aptitude</span>
+                                <span class="skill-tag">Logical Reasoning</span>
+                                <span class="skill-tag">Verbal Ability</span>
+                                <span class="skill-tag">Data Interpretation</span>
+                                <span class="skill-tag">Puzzles</span>
+                                <span class="skill-tag">Time Management</span>
+                            </div>
+                            <p style="margin-top: 15px;">Intensive training for campus placement aptitude tests with regular practice sessions and simulated tests.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Program 3 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-user-tie"></i>
+                            <div>
+                                <h3>Soft Skills & Communication</h3>
+                                <div class="program-duration">Duration: Year-round Program</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Dr. Meena Krishnan</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 40 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Saturdays, 10 AM - 1 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Skills Developed:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Group Discussion</span>
+                                <span class="skill-tag">Personal Interview</span>
+                                <span class="skill-tag">Presentation Skills</span>
+                                <span class="skill-tag">Email Etiquette</span>
+                                <span class="skill-tag">Body Language</span>
+                                <span class="skill-tag">Team Building</span>
+                            </div>
+                            <p style="margin-top: 15px;">Holistic development of communication and interpersonal skills essential for professional success.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Training Calendar 2024-25 -->
+                <div class="calendar-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center;">
+                        <i class="fas fa-calendar-alt" style="margin-right: 10px; color: var(--secondary);"></i>
+                        Training Calendar 2024-2025
+                    </h3>
+                    <table class="calendar-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Technical Training</th>
+                                <th>Aptitude Training</th>
+                                <th>Soft Skills</th>
+                                <th>Mock Tests</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>July 2024</td>
+                                <td>Programming Fundamentals</td>
+                                <td>Quantitative Aptitude Basics</td>
+                                <td>Communication Basics</td>
+                                <td>Basic Aptitude Test</td>
+                            </tr>
+                            <tr>
+                                <td>August 2024</td>
+                                <td>Data Structures & Algorithms</td>
+                                <td>Logical Reasoning</td>
+                                <td>Group Discussion Practice</td>
+                                <td>Technical Test 1</td>
+                            </tr>
+                            <tr>
+                                <td>September 2024</td>
+                                <td>Database & SQL</td>
+                                <td>Verbal Ability</td>
+                                <td>Resume Building</td>
+                                <td>Aptitude Test 1</td>
+                            </tr>
+                            <tr>
+                                <td>October 2024</td>
+                                <td>Web Technologies</td>
+                                <td>Data Interpretation</td>
+                                <td>Interview Skills</td>
+                                <td>Mock Interview 1</td>
+                            </tr>
+                            <tr>
+                                <td>November 2024</td>
+                                <td>Advanced Programming</td>
+                                <td>Advanced Reasoning</td>
+                                <td>Corporate Etiquette</td>
+                                <td>Final Mock Test</td>
+                            </tr>
+                            <tr>
+                                <td>December 2024</td>
+                                <td>Project Development</td>
+                                <td>Revision & Practice</td>
+                                <td>Final Preparation</td>
+                                <td>Placement Ready Test</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Training Statistics 2024-25 -->
+                <div class="stats-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Training Impact 2024-2025</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                                                        <h3>180</h3>
+                            <p>Students Enrolled</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>85%</h3>
+                            <p>Attendance Rate</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>92%</h3>
+                            <p>Success Rate in Tests</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>150+</h3>
+                            <p>Mock Interviews Conducted</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2023-2024 Training Programs -->
+            <div class="year-section" id="2023-24">
+                <div class="training-programs">
+                    <!-- Program 1 - 2023-24 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h3>Technical Training 2023-24</h3>
+                                <div class="program-duration">Duration: August 2023 - December 2023</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Mr. Senthil Kumar (Infosys)</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 55 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekends, 9 AM - 4 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Skills Covered:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">C++ Programming</span>
+                                <span class="skill-tag">Data Structures</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Database Concepts</span>
+                                <span class="skill-tag">Web Basics</span>
+                                <span class="skill-tag">Problem Solving</span>
+                            </div>
+                            <p style="margin-top: 15px;">Focused technical training program that helped 75% of participants secure technical roles in campus placements.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Program 2 - 2023-24 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <h3>Aptitude Training 2023-24</h3>
+                                <div class="program-duration">Duration: July 2023 - November 2023</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Mr. Arvind Patel (TCS)</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 70 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekdays, 4 PM - 6 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Topics Covered:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Quantitative Aptitude</span>
+                                <span class="skill-tag">Logical Reasoning</span>
+                                <span class="skill-tag">Verbal Ability</span>
+                                <span class="skill-tag">Data Interpretation</span>
+                                <span class="skill-tag">Puzzles</span>
+                            </div>
+                            <p style="margin-top: 15px;">Systematic aptitude training that improved test scores by an average of 40% among participants.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Program 3 - 2023-24 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-user-tie"></i>
+                            <div>
+                                <h3>Soft Skills 2023-24</h3>
+                                <div class="program-duration">Duration: Year-round Program</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Dr. Lakshmi Narayanan</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 35 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Saturdays, 10 AM - 1 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Skills Developed:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Group Discussion</span>
+                                <span class="skill-tag">Interview Skills</span>
+                                <span class="skill-tag">Presentation Skills</span>
+                                <span class="skill-tag">Email Etiquette</span>
+                                <span class="skill-tag">Team Work</span>
+                            </div>
+                            <p style="margin-top: 15px;">Comprehensive soft skills program that significantly improved placement interview success rates.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Training Statistics 2023-24 -->
+                <div class="stats-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Training Impact 2023-2024</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>165</h3>
+                            <p>Students Enrolled</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>82%</h3>
+                            <p>Attendance Rate</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>88%</h3>
+                            <p>Success Rate in Tests</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>135+</h3>
+                            <p>Mock Interviews Conducted</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Success Stories 2023-24 -->
+                <div class="calendar-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center;">
+                        <i class="fas fa-star" style="margin-right: 10px; color: var(--secondary);"></i>
+                        Success Stories 2023-2024
+                    </h3>
+                    <p style="margin-bottom: 20px;">Our training program helped students secure placements in top companies with an average package of ₹6.5 LPA.</p>
+                    <div class="skills-list" style="justify-content: center;">
+                        <span class="skill-tag" style="background-color: rgba(231, 76, 60, 0.1); color: var(--accent);">TCS: 15 Students</span>
+                        <span class="skill-tag" style="background-color: rgba(52, 152, 219, 0.1); color: #3498db;">Infosys: 12 Students</span>
+                        <span class="skill-tag" style="background-color: rgba(155, 89, 182, 0.1); color: #9b59b6;">Wipro: 10 Students</span>
+                        <span class="skill-tag" style="background-color: rgba(241, 196, 15, 0.1); color: #f1c40f;">Cognizant: 8 Students</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2025-2026 Training Programs -->
+            <div class="year-section" id="2025-26">
+                <div class="training-programs">
+                    <!-- Program 1 - 2025-26 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-laptop-code"></i>
+                            <div>
+                                <h3>Advanced Technical Training</h3>
+                                <div class="program-duration">Duration: August 2025 - December 2025</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Industry Experts (To be announced)</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 50 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekends, 9 AM - 5 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Planned Skills:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Full Stack Development</span>
+                                <span class="skill-tag">Cloud Computing</span>
+                                <span class="skill-tag">Machine Learning</span>
+                                <span class="skill-tag">DevOps</span>
+                                <span class="skill-tag">Cybersecurity</span>
+                                <span class="skill-tag">Mobile Development</span>
+                            </div>
+                            <p style="margin-top: 15px;">Upcoming advanced technical training focusing on emerging technologies and industry demands.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Program 2 - 2025-26 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <h3>Aptitude Excellence Program</h3>
+                                <div class="program-duration">Duration: July 2025 - November 2025</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Certified Aptitude Trainers</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 60 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Weekdays, 4 PM - 7 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Enhanced Topics:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Advanced Quant</span>
+                                <span class="skill-tag">Critical Reasoning</span>
+                                <span class="skill-tag">Verbal Mastery</span>
+                                <span class="skill-tag">DI & LR</span>
+                                <span class="skill-tag">GMAT/GRE Prep</span>
+                                <span class="skill-tag">Test Strategies</span>
+                            </div>
+                            <p style="margin-top: 15px;">Advanced aptitude training program designed for premium placement opportunities.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Program 3 - 2025-26 -->
+                    <div class="program-card">
+                        <div class="program-header">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h3>Career Development Program</h3>
+                                <div class="program-duration">Duration: Year-round Program</div>
+                            </div>
+                        </div>
+                        <div class="program-content">
+                            <div class="program-details">
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Trainer:</strong> Corporate HR Professionals</p>
+                                <p><i class="fas fa-users"></i> <strong>Batch Size:</strong> 30 students per batch</p>
+                                <p><i class="fas fa-clock"></i> <strong>Schedule:</strong> Saturdays, 9 AM - 2 PM</p>
+                            </div>
+                            <h4 style="color: var(--primary); margin: 15px 0 10px;">Career Skills:</h4>
+                            <div class="skills-list">
+                                <span class="skill-tag">Leadership Skills</span>
+                                <span class="skill-tag">Corporate Ethics</span>
+                                <span class="skill-tag">Negotiation Skills</span>
+                                <span class="skill-tag">Career Planning</span>
+                                <span class="skill-tag">Networking</span>
+                                <span class="skill-tag">Professional Growth</span>
+                            </div>
+                            <p style="margin-top: 15px;">Comprehensive career development program focusing on long-term professional success.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Planned Enhancements 2025-26 -->
+                <div class="calendar-section">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; display: flex; align-items: center;">
+                        <i class="fas fa-bullseye" style="margin-right: 10px; color: var(--secondary);"></i>
+                        Planned Enhancements 2025-2026
+                    </h3>
+                    <div class="program-details">
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Industry Partnerships:</strong> Collaboration with 5+ new tech companies</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Infrastructure Upgrade:</strong> New computer lab with high-end systems</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Online Portal:</strong> Dedicated training portal with resources and tests</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Mock Test Series:</strong> 20+ full-length mock tests</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> <strong>Placement Target:</strong> 100% placement for trained students</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Training Partners -->
+            <div class="partners-section">
+                <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">Our Training Partners</h3>
+                <div class="partners-grid">
+                    <div class="partner-card">
+                        <div style="width: 100px; height: 40px; background-color: #0047AB; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; border-radius: 5px;">TCS</div>
+                        <p style="font-size: 0.9rem; color: var(--gray);">Technical Training Partner</p>
+                    </div>
+                    <div class="partner-card">
+                        <div style="width: 100px; height: 40px; background-color: #007CC3; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; border-radius: 5px;">Infosys</div>
+                        <p style="font-size: 0.9rem; color: var(--gray);">Skill Development Partner</p>
+                    </div>
+                    <div class="partner-card">
+                        <div style="width: 100px; height: 40px; background-color: #0033A0; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; border-radius: 5px;">Wipro</div>
+                        <p style="font-size: 0.9rem; color: var(--gray);">Aptitude Training Partner</p>
+                    </div>
+                    <div class="partner-card">
+                        <div style="width: 100px; height: 40px; background: linear-gradient(135deg, #FF6B6B, #4ECDC4); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; border-radius: 5px;">Career Launcher</div>
+                        <p style="font-size: 0.9rem; color: var(--gray);">Test Preparation Partner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Section -->
+            <div class="download-section">
+                <h3 style="color: var(--primary); margin-bottom: 20px;">Training Resources & Materials</h3>
+                <p style="margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Download comprehensive training materials, study plans, and practice tests to enhance your preparation.
+                </p>
+                <div>
+                    <a href="../downloads/training-materials-2024.zip" class="download-btn">
+                        <i class="fas fa-download"></i> Download Training Materials
+                    </a>
+                    <a href="../downloads/aptitude-bank.pdf" class="download-btn">
+                        <i class="fas fa-file-pdf"></i> Aptitude Question Bank
+                    </a>
+                    <a href="../downloads/interview-guide.pdf" class="download-btn">
+                        <i class="fas fa-book"></i> Interview Preparation Guide
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Department of IT</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Department</a></li>
+                        <li><a href="faculty.html">Faculty Members</a></li>
+                        <li><a href="laboratories.html">Laboratories</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Academics</h3>
+                    <ul>
+                        <li><a href="curriculum.html">Curriculum</a></li>
+                        <li><a href="timetable.html">Timetable</a></li>
+                        <li><a href="regulations.html">Regulations</a></li>
+                        <li><a href="bos.html">Board of Studies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Placement & Training</h3>
+                    <ul>
+                        <li><a href="placement-training.html">Training Programs</a></li>
+                        <li><a href="placement-internship.html">Internship</a></li>
+                        <li><a href="placement.html">Placement Records</a></li>
+                        <li><a href="../downloads/brochure.pdf">Placement Brochure</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Navakkarai, Coimbatore - 641105</li>
+                        <li><i class="fas fa-phone"></i> +91 9843682583</li>
+                        <li><i class="fas fa-envelope"></i> hod.it@ecetonline.com</li>
+                        <li><i class="fas fa-globe"></i> www.ecetonline.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Department of Information Technology - EASA College of Engineering & Technology. All Rights Reserved.</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">Designed by IT Department Students | Maintained by Web Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+            this.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
+
+        // Year Tabs Functionality
+        document.querySelectorAll('.year-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and sections
+                document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.year-section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const yearId = this.getAttribute('data-year');
+                document.getElementById(yearId).classList.add('active');
+            });
+        });
+
+        // Mobile Dropdown Toggle
+        document.querySelectorAll('.dropdown-toggle, .sub-dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    parent.classList.toggle('active');
+                    
+                    // Close other dropdowns
+                    document.querySelectorAll('.dropdown, .sub-dropdown').forEach(item => {
+                        if (item !== parent) {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.matches('.dropdown-toggle, .sub-dropdown-toggle, .dropdown-toggle *, .sub-dropdown-toggle *')) {
+                document.querySelectorAll('.dropdown, .sub-dropdown').forEach(item => {
+                    if (window.innerWidth > 768) {
+                        // For desktop, only handle if not hovering
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
