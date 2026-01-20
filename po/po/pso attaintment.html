@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R2021 CO & PO/PSO Attainment Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .semester-selector, .course-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        select, button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .calculate-btn {
+            background-color: #2ecc71;
+        }
+        
+        .calculate-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .reset-btn {
+            background-color: #e74c3c;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .data-entry, .results {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .course-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .co-input-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .co-input-table th, .co-input-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .co-input-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .co-input-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .results-tables {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1100px) {
+            .results-tables {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .results-table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .results-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .po-table th:nth-child(1), .pso-table th:nth-child(1) {
+            width: 150px;
+        }
+        
+        .visualization {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+        
+        .low { background-color: #e74c3c; }
+        .medium { background-color: #f39c12; }
+        .high { background-color: #2ecc71; }
+        
+        .instructions {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #ff9800;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .export-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>R2021 CO & PO/PSO Attainment Calculator</h1>
+            <p class="subtitle">Calculate Course Outcome (CO) and Program Outcome/Program Specific Outcome (PO/PSO) attainment for R2021 regulation courses</p>
+        </header>
+        
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ul>
+                <li>Select a semester and course from the dropdown menus</li>
+                <li>Enter CO attainment scores (0-3 scale) for the selected course</li>
+                <li>Click "Calculate PO/PSO Attainment" to compute results</li>
+                <li>Results show PO/PSO contributions based on the R2021 Course Articulation Matrix</li>
+                <li>Use "Reset Course Data" to clear inputs for the current course</li>
+                <li>Use "Export Results" to save your calculations as JSON</li>
+            </ul>
+            <p class="note">Note: CO attainment scores should be on a scale of 0-3, where 0 = Not Attained, 1 = Low Attainment, 2 = Medium Attainment, 3 = High Attainment</p>
+        </div>
+        
+        <div class="controls">
+            <div class="semester-selector">
+                <label for="semester"><strong>Select Semester:</strong></label>
+                <select id="semester">
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            
+            <div class="course-selector">
+                <label for="course"><strong>Select Course:</strong></label>
+                <select id="course">
+                    <!-- Courses will be populated by JavaScript -->
+                </select>
+            </div>
+            
+            <div class="button-group">
+                <button id="calculateBtn" class="calculate-btn">Calculate PO/PSO Attainment</button>
+                <button id="resetBtn" class="reset-btn">Reset Course Data</button>
+            </div>
+        </div>
+        
+        <div class="data-entry">
+            <h2>CO Attainment Input</h2>
+            <div id="courseInfo" class="course-info">
+                <!-- Course information will be displayed here -->
+            </div>
+            
+            <table id="coInputTable" class="co-input-table">
+                <!-- CO input table will be generated here -->
+            </table>
+        </div>
+        
+        <div class="results">
+            <h2>PO/PSO Attainment Results</h2>
+            <div class="results-tables">
+                <div>
+                    <h3>Program Outcomes (POs)</h3>
+                    <table id="poResultsTable" class="results-table po-table">
+                        <!-- PO results will be displayed here -->
+                    </table>
+                </div>
+                
+                <div>
+                    <h3>Program Specific Outcomes (PSOs)</h3>
+                    <table id="psoResultsTable" class="results-table pso-table">
+                        <!-- PSO results will be displayed here -->
+                    </table>
+                </div>
+            </div>
+            
+            <div class="visualization">
+                <h3>PO Attainment Visualization</h3>
+                <div class="chart-container">
+                    <canvas id="poChart"></canvas>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color low"></div>
+                        <span>Low Attainment (0-1)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color medium"></div>
+                        <span>Medium Attainment (1-2)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color high"></div>
+                        <span>High Attainment (2-3)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="export-controls">
+                <button id="exportBtn" class="calculate-btn">Export Results as JSON</button>
+                <button id="loadBtn">Load Previous Results</button>
+                <input type="file" id="fileInput" accept=".json" style="display: none;">
+            </div>
+        </div>
+        
+        <footer>
+            <p>R2021 Regulation CO-PO/PSO Attainment Calculator | Based on R2021 Course Articulation Matrix</p>
+            <p>Note: This tool calculates PO/PSO attainment based on CO attainment scores and the predefined correlation matrix</p>
+        </footer>
+    </div>
+
+    <!-- Include Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // R2021 Course Articulation Matrix Data
+        const courseData = {
+            // Semester 1
+            "1": [
+                {
+                    code: "HS3152",
+                    name: "Professional English - I",
+                    cos: ["C101.1", "C101.2", "C101.3", "C101.4", "C101.5"],
+                    poMatrix: [
+                        [1, 1, 1, 1, 1, 3, 3, 1, 3, 0, 3, 0, 0, 0],
+                        [1, 1, 1, 1, 1, 3, 3, 1, 3, 0, 3, 0, 0, 0],
+                        [2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 3, 0, 0, 0],
+                        [2, 3, 2, 3, 2, 3, 3, 2, 3, 3, 3, 0, 0, 0],
+                        [2, 3, 3, 3, 0, 3, 3, 2, 3, 0, 3, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "MA3151",
+                    name: "Matrices and Calculus",
+                    cos: ["C102.1", "C102.2", "C102.3", "C102.4", "C102.5"],
+                    poMatrix: [
+                        [3, 3, 1, 1, 0, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 0, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 0, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 0, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 0, 0, 0, 2, 0, 2, 3, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "PH3151",
+                    name: "Engineering Physics",
+                    cos: ["C103.1", "C103.2", "C103.3", "C103.4", "C103.5"],
+                    poMatrix: [
+                        [3, 3, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 3, 2, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 3, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 3, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 3, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "CY3151",
+                    name: "Engineering Chemistry",
+                    cos: ["C104.1", "C104.2", "C104.3", "C104.4", "C104.5"],
+                    poMatrix: [
+                        [3, 2, 2, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+                        [2, 0, 1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 1, 1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 1, 2, 1, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "GE3151",
+                    name: "Problem Solving & Python Programming",
+                    cos: ["C105.1", "C105.2", "C105.3", "C105.4", "C105.5", "C105.6"],
+                    poMatrix: [
+                        [3, 3, 3, 3, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+                        [2, 2, 0, 2, 2, 0, 0, 0, 0, 1, 3, 0, 0, 0],
+                        [1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0],
+                        [2, 2, 0, 0, 2, 0, 0, 0, 0, 1, 2, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "GE3152",
+                    name: "தமிழர் மரப / Heritage of Tamils",
+                    cos: ["C106.1", "C106.2", "C106.3", "C106.4", "C106.5"],
+                    poMatrix: [
+                        [0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 2, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 2, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "GE3171",
+                    name: "Problem Solving & Python Programming Lab",
+                    cos: ["C107.1", "C107.2", "C107.3", "C107.4", "C107.5", "C107.6"],
+                    poMatrix: [
+                        [3, 3, 3, 3, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0],
+                        [2, 2, 0, 2, 2, 0, 0, 0, 0, 1, 3, 0, 0, 0],
+                        [1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0],
+                        [2, 2, 0, 0, 2, 0, 0, 0, 0, 1, 2, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "BS3171",
+                    name: "Physics & Chemistry Laboratory",
+                    cos: ["C108.1", "C108.2", "C108.3", "C108.4", "C108.5", "C108.6", "C108.7", "C108.8", "C108.9", "C108.10"],
+                    poMatrix: [
+                        [3, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [3, 0, 1, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],
+                        [3, 1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+                        [3, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [2, 1, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [2, 1, 2, 0, 1, 2, 0, 0, 0, 0, 1, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "GE3172",
+                    name: "English Laboratory",
+                    cos: ["C109.1", "C109.2", "C109.3", "C109.4", "C109.5"],
+                    poMatrix: [
+                        [3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 0, 0, 0]
+                    ]
+                }
+            ],
+            // Semester 2 (sample - you can add more courses similarly)
+            "2": [
+                {
+                    code: "HS3252",
+                    name: "Professional English - II",
+                    cos: ["C201.1", "C201.2", "C201.3", "C201.4", "C201.5"],
+                    poMatrix: [
+                        [3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 3, 0, 0, 0],
+                        [3, 3, 3, 3, 2, 3, 3, 2, 3, 3, 3, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0]
+                    ]
+                },
+                {
+                    code: "MA3251",
+                    name: "Statistics & Numerical Methods",
+                    cos: ["C202.1", "C202.2", "C202.3", "C202.4", "C202.5"],
+                    poMatrix: [
+                        [3, 3, 1, 1, 1, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 1, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 1, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 1, 0, 0, 2, 0, 2, 3, 0, 0, 0],
+                        [3, 3, 1, 1, 1, 0, 0, 2, 0, 2, 3, 0, 0, 0]
+                    ]
+                }
+            ]
+            // Add more semesters as needed...
+        };
+
+        // PO and PSO labels
+        const poLabels = ["PO 1", "PO 2", "PO 3", "PO 4", "PO 5", "PO 6", "PO 7", "PO 8", "PO 9", "PO 10", "PO 11"];
+        const psoLabels = ["PSO 1", "PSO 2", "PSO 3"];
+        
+        // Global variables
+        let currentCourse = null;
+        let poChart = null;
+        let storedResults = {};
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSemesterSelector();
+            initializeCourseSelector();
+            updateCourseDisplay();
+            
+            // Set up event listeners
+            document.getElementById('semester').addEventListener('change', function() {
+                updateCourseSelector();
+                updateCourseDisplay();
+            });
+            
+            document.getElementById('course').addEventListener('change', updateCourseDisplay);
+            document.getElementById('calculateBtn').addEventListener('click', calculateAttainment);
+            document.getElementById('resetBtn').addEventListener('click', resetCourseData);
+            document.getElementById('exportBtn').addEventListener('click', exportResults);
+            document.getElementById('loadBtn').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+            document.getElementById('fileInput').addEventListener('change', loadResultsFromFile);
+            
+            // Load any previously saved results from localStorage
+            loadStoredResults();
+        });
+        
+        // Initialize semester selector
+        function initializeSemesterSelector() {
+            const semesterSelect = document.getElementById('semester');
+            // Already populated in HTML
+        }
+        
+        // Initialize course selector
+        function initializeCourseSelector() {
+            updateCourseSelector();
+        }
+        
+        // Update course selector based on selected semester
+        function updateCourseSelector() {
+            const semester = document.getElementById('semester').value;
+            const courseSelect = document.getElementById('course');
+            
+            // Clear current options
+            courseSelect.innerHTML = '';
+            
+            // Add courses for selected semester
+            if (courseData[semester]) {
+                courseData[semester].forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.code;
+                    option.textContent = `${course.code} - ${course.name}`;
+                    courseSelect.appendChild(option);
+                });
+            }
+        }
+        
+        // Update course display based on selected course
+        function updateCourseDisplay() {
+            const semester = document.getElementById('semester').value;
+            const courseCode = document.getElementById('course').value;
+            
+            // Find the selected course
+            currentCourse = null;
+            if (courseData[semester]) {
+                currentCourse = courseData[semester].find(course => course.code === courseCode);
+            }
+            
+            // Update course info display
+            const courseInfoDiv = document.getElementById('courseInfo');
+            if (currentCourse) {
+                courseInfoDiv.innerHTML = `
+                    <h3>${currentCourse.code} - ${currentCourse.name}</h3>
+                    <p>Semester ${semester} | ${currentCourse.cos.length} Course Outcomes (COs)</p>
+                `;
+                
+                // Create CO input table
+                createCOInputTable();
+                
+                // Clear previous results
+                clearResultsTables();
+                
+                // Load any previously entered CO values for this course
+                loadCourseCOValues();
+            } else {
+                courseInfoDiv.innerHTML = `<p>Please select a course</p>`;
+                document.getElementById('coInputTable').innerHTML = '';
+                clearResultsTables();
+            }
+        }
+        
+        // Create CO input table
+        function createCOInputTable() {
+            const table = document.getElementById('coInputTable');
+            
+            // Create header
+            let html = `
+                <thead>
+                    <tr>
+                        <th>CO Code</th>
+                        <th>CO Attainment (0-3)</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            // Create rows for each CO
+            currentCourse.cos.forEach((coCode, index) => {
+                html += `
+                    <tr>
+                        <td>${coCode}</td>
+                        <td>
+                            <input type="number" id="co-${coCode}" min="0" max="3" step="0.1" value="0">
+                        </td>
+                        <td>Course Outcome ${index + 1}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `</tbody>`;
+            table.innerHTML = html;
+        }
+        
+        // Calculate PO/PSO attainment
+        function calculateAttainment() {
+            if (!currentCourse) {
+                alert("Please select a course first.");
+                return;
+            }
+            
+            // Get CO attainment values
+            const coValues = {};
+            let allCOsValid = true;
+            
+            currentCourse.cos.forEach(coCode => {
+                const input = document.getElementById(`co-${coCode}`);
+                const value = parseFloat(input.value);
+                
+                if (isNaN(value) || value < 0 || value > 3) {
+                    alert(`Please enter a valid value (0-3) for ${coCode}`);
+                    allCOsValid = false;
+                    input.focus();
+                    return;
+                }
+                
+                coValues[coCode] = value;
+            });
+            
+            if (!allCOsValid) return;
+            
+            // Calculate PO attainment
+            const poResults = calculatePOAttainment(coValues);
+            
+            // Display PO results
+            displayPOResults(poResults);
+            
+            // Display PSO results (PSOs are columns 11-13 in the matrix, 0-indexed)
+            const psoResults = poResults.slice(11, 14);
+            displayPSOResults(psoResults);
+            
+            // Visualize PO results
+            visualizePOResults(poResults.slice(0, 11));
+            
+            // Store results
+            storeCourseResults(coValues, poResults);
+        }
+        
+        // Calculate PO attainment based on CO values and correlation matrix
+        function calculatePOAttainment(coValues) {
+            const poCount = currentCourse.poMatrix[0].length; // Should be 14 (11 POs + 3 PSOs)
+            const poSums = new Array(poCount).fill(0);
+            const poWeights = new Array(poCount).fill(0);
+            
+            // For each CO
+            currentCourse.cos.forEach((coCode, coIndex) => {
+                const coValue = coValues[coCode];
+                
+                // For each PO/PSO
+                for (let poIndex = 0; poIndex < poCount; poIndex++) {
+                    const correlation = currentCourse.poMatrix[coIndex][poIndex];
+                    
+                    if (correlation > 0) {
+                        poSums[poIndex] += correlation * coValue;
+                        poWeights[poIndex] += correlation;
+                    }
+                }
+            });
+            
+            // Calculate weighted average for each PO/PSO
+            const poResults = new Array(poCount).fill(0);
+            for (let i = 0; i < poCount; i++) {
+                if (poWeights[i] > 0) {
+                    poResults[i] = poSums[i] / poWeights[i];
+                }
+            }
+            
+            return poResults;
+        }
+        
+        // Display PO results in table
+        function displayPOResults(poResults) {
+            const table = document.getElementById('poResultsTable');
+            
+            let html = `
+                <thead>
+                    <tr>
+                        <th>PO</th>
+                        <th>Attainment</th>
+                        <th>Level</th>
+                        <th>Correlation Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            // Display only first 11 POs
+            for (let i = 0; i < 11; i++) {
+                const attainment = poResults[i].toFixed(2);
+                const level = getAttainmentLevel(poResults[i]);
+                const weight = calculateCorrelationWeight(i);
+                
+                html += `
+                    <tr>
+                        <td>PO ${i + 1}</td>
+                        <td>${attainment}</td>
+                        <td>${level}</td>
+                        <td>${weight.toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+            
+            html += `</tbody>`;
+            table.innerHTML = html;
+        }
+        
+        // Display PSO results in table
+        function displayPSOResults(psoResults) {
+            const table = document.getElementById('psoResultsTable');
+            
+            let html = `
+                <thead>
+                    <tr>
+                        <th>PSO</th>
+                        <th>Attainment</th>
+                        <th>Level</th>
+                        <th>Correlation Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            for (let i = 0; i < 3; i++) {
+                const attainment = psoResults[i].toFixed(2);
+                const level = getAttainmentLevel(psoResults[i]);
+                const weight = calculateCorrelationWeight(i + 11); // PSOs are at indices 11-13
+                
+                html += `
+                    <tr>
+                        <td>PSO ${i + 1}</td>
+                        <td>${attainment}</td>
+                        <td>${level}</td>
+                        <td>${weight.toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+            
+            html += `</tbody>`;
+            table.innerHTML = html;
+        }
+        
+        // Calculate correlation weight for a specific PO/PSO
+        function calculateCorrelationWeight(poIndex) {
+            let totalCorrelation = 0;
+            let count = 0;
+            
+            currentCourse.poMatrix.forEach(row => {
+                const correlation = row[poIndex];
+                if (correlation > 0) {
+                    totalCorrelation += correlation;
+                    count++;
+                }
+            });
+            
+            return count > 0 ? totalCorrelation / count : 0;
+        }
+        
+        // Get attainment level based on value
+        function getAttainmentLevel(value) {
+            if (value >= 2.5) return "High";
+            if (value >= 1.5) return "Medium";
+            return "Low";
+        }
+        
+        // Visualize PO results with Chart.js
+        function visualizePOResults(poResults) {
+            const ctx = document.getElementById('poChart').getContext('2d');
+            
+            // Destroy previous chart if exists
+            if (poChart) {
+                poChart.destroy();
+            }
+            
+            // Prepare data
+            const labels = poLabels;
+            const data = poResults.map(val => parseFloat(val.toFixed(2)));
+            
+            // Create gradient for bars
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(52, 152, 219, 0.8)');
+            gradient.addColorStop(1, 'rgba(41, 128, 185, 0.8)');
+            
+            // Create chart
+            poChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'PO Attainment',
+                        data: data,
+                        backgroundColor: data.map(val => {
+                            if (val >= 2.5) return 'rgba(46, 204, 113, 0.8)'; // Green for high
+                            if (val >= 1.5) return 'rgba(243, 156, 18, 0.8)'; // Orange for medium
+                            return 'rgba(231, 76, 60, 0.8)'; // Red for low
+                        }),
+                        borderColor: data.map(val => {
+                            if (val >= 2.5) return 'rgba(39, 174, 96, 1)';
+                            if (val >= 1.5) return 'rgba(230, 126, 34, 1)';
+                            return 'rgba(192, 57, 43, 1)';
+                        }),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 3,
+                            title: {
+                                display: true,
+                                text: 'Attainment Level (0-3)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Program Outcomes (POs)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `PO ${context.label}: ${context.raw.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Clear results tables
+        function clearResultsTables() {
+            document.getElementById('poResultsTable').innerHTML = '';
+            document.getElementById('psoResultsTable').innerHTML = '';
+            
+            // Clear chart
+            if (poChart) {
+                poChart.destroy();
+                poChart = null;
+            }
+        }
+        
+        // Reset course data
+        function resetCourseData() {
+            if (!currentCourse) return;
+            
+            // Reset CO inputs to 0
+            currentCourse.cos.forEach(coCode => {
+                const input = document.getElementById(`co-${coCode}`);
+                if (input) input.value = 0;
+            });
+            
+            // Clear results
+            clearResultsTables();
+            
+            // Clear stored results for this course
+            const semester = document.getElementById('semester').value;
+            const courseKey = `${semester}-${currentCourse.code}`;
+            delete storedResults[courseKey];
+            saveStoredResults();
+        }
+        
+        // Store course results
+        function storeCourseResults(coValues, poResults) {
+            const semester = document.getElementById('semester').value;
+            const courseKey = `${semester}-${currentCourse.code}`;
+            
+            storedResults[courseKey] = {
+                semester: semester,
+                courseCode: currentCourse.code,
+                courseName: currentCourse.name,
+                coValues: coValues,
+                poResults: poResults,
+                timestamp: new Date().toISOString()
+            };
+            
+            saveStoredResults();
+        }
+        
+        // Save stored results to localStorage
+        function saveStoredResults() {
+            localStorage.setItem('r2021-attainment-results', JSON.stringify(storedResults));
+        }
+        
+        // Load stored results from localStorage
+        function loadStoredResults() {
+            const saved = localStorage.getItem('r2021-attainment-results');
+            if (saved) {
+                try {
+                    storedResults = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading saved results:', e);
+                    storedResults = {};
+                }
+            }
+        }
+        
+        // Load CO values for current course from stored results
+        function loadCourseCOValues() {
+            const semester = document.getElementById('semester').value;
+            const courseKey = `${semester}-${currentCourse.code}`;
+            
+            if (storedResults[courseKey]) {
+                const coValues = storedResults[courseKey].coValues;
+                
+                // Set CO input values
+                currentCourse.cos.forEach(coCode => {
+                    const input = document.getElementById(`co-${coCode}`);
+                    if (input && coValues[coCode] !== undefined) {
+                        input.value = coValues[coCode];
+                    }
+                });
+                
+                // If we have PO results, display them
+                if (storedResults[courseKey].poResults) {
+                    const poResults = storedResults[courseKey].poResults;
+                    displayPOResults(poResults);
+                    
+                    // Display PSO results
+                    const psoResults = poResults.slice(11, 14);
+                    displayPSOResults(psoResults);
+                    
+                    // Visualize PO results
+                    visualizePOResults(poResults.slice(0, 11));
+                }
+            }
+        }
+        
+        // Export results as JSON
+        function exportResults() {
+            if (Object.keys(storedResults).length === 0) {
+                alert('No results to export. Please calculate attainment for at least one course.');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(storedResults, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `r2021-attainment-results-${new Date().toISOString().slice(0,10)}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Load results from file
+        function loadResultsFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loadedResults = JSON.parse(e.target.result);
+                    storedResults = loadedResults;
+                    saveStoredResults();
+                    
+                    // Reload current course if it exists in loaded results
+                    if (currentCourse) {
+                        const semester = document.getElementById('semester').value;
+                        const courseKey = `${semester}-${currentCourse.code}`;
+                        
+                        if (storedResults[courseKey]) {
+                            loadCourseCOValues();
+                            alert('Results loaded successfully!');
+                        }
+                    }
+                    
+                    // Reset file input
+                    event.target.value = '';
+                } catch (error) {
+                    alert('Error loading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
