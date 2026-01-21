@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Tools & Rubrics for CO/PO/PSO Attainment</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .panel {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .panel h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #7f8c8d;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab:hover {
+            color: #3498db;
+        }
+        
+        .tab.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        td {
+            padding: 15px;
+            border: 1px solid #e1e1e1;
+            text-align: center;
+        }
+        
+        .rubric-table th {
+            background-color: #2c3e50;
+        }
+        
+        .rubric-level-3 { background-color: #2ecc71; color: white; }
+        .rubric-level-2 { background-color: #3498db; color: white; }
+        .rubric-level-1 { background-color: #f39c12; color: white; }
+        .rubric-level-0 { background-color: #e74c3c; color: white; }
+        
+        .input-cell {
+            width: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        
+        .input-cell:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-success {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        .btn-secondary {
+            background-color: #7f8c8d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #636e72;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .assessment-tool {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .assessment-tool h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        select, input[type="number"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .results-panel {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+        }
+        
+        .co-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .co-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s;
+        }
+        
+        .co-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .co-code {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+        
+        .co-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .co-level {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .level-excellent { background-color: #2ecc71; color: white; }
+        .level-good { background-color: #3498db; color: white; }
+        .level-average { background-color: #f39c12; color: white; }
+        .level-poor { background-color: #e74c3c; color: white; }
+        
+        .instructions {
+            background-color: #e8f4fc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .instructions ul, .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            background-color: #fff8e1;
+            padding: 3px 5px;
+            border-radius: 3px;
+        }
+        
+        .tool-description {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .criteria-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .criteria-list li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .metric-box {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .metric-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .indicator {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .co-display {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-bottom: 1px solid #ddd;
+                border-left: 3px solid transparent;
+            }
+            
+            .tab.active {
+                border-left: 3px solid #3498db;
+                border-bottom: 1px solid #ddd;
+            }
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #2ecc71;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .score-display {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .calculation-steps {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .calculation-steps h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-clipboard-check"></i> Assessment Tools & Rubrics</h1>
+            <p class="subtitle">Comprehensive toolkit for measuring CO, PO, and PSO attainment</p>
+        </header>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> How to Use This Toolkit</h3>
+            <p>This comprehensive assessment toolkit provides multiple methods to measure Course Outcome (CO), Program Outcome (PO), and Program Specific Outcome (PSO) attainment. Follow these steps:</p>
+            <ol>
+                <li>Select the appropriate assessment tool based on your measurement needs</li>
+                <li>Use the provided rubrics to ensure consistent evaluation</li>
+                <li>Input assessment data to automatically calculate attainment levels</li>
+                <li>Review results and export for reporting purposes</li>
+            </ol>
+        </div>
+        
+        <div class="tabs" id="mainTabs">
+            <button class="tab active" data-tab="direct-assessment">Direct Assessment</button>
+            <button class="tab" data-tab="indirect-assessment">Indirect Assessment</button>
+            <button class="tab" data-tab="rubrics">Assessment Rubrics</button>
+            <button class="tab" data-tab="calculators">Attainment Calculators</button>
+            <button class="tab" data-tab="results">Results Dashboard</button>
+        </div>
+        
+        <!-- Direct Assessment Tab -->
+        <div class="tab-content active" id="direct-assessment">
+            <div class="dashboard">
+                <div class="panel">
+                    <h2><i class="fas fa-pencil-alt"></i> Direct Assessment Tools</h2>
+                    
+                    <div class="assessment-tool">
+                        <h3>1. Exam/Test Based Assessment</h3>
+                        <p class="tool-description">Measure CO attainment through written exams, quizzes, or tests.</p>
+                        
+                        <div class="form-group">
+                            <label for="assessmentType">Assessment Type:</label>
+                            <select id="assessmentType">
+                                <option value="endSem">End Semester Exam</option>
+                                <option value="midSem">Mid Semester Test</option>
+                                <option value="quiz">Quiz</option>
+                                <option value="assignment">Written Assignment</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="maxMarks">Maximum Marks:</label>
+                            <input type="number" id="maxMarks" value="100" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="passingThreshold">Passing Threshold (%):</label>
+                            <input type="number" id="passingThreshold" value="40" min="0" max="100">
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-tool">
+                        <h3>2. Performance/Practical Assessment</h3>
+                        <p class="tool-description">Evaluate practical skills, lab work, or project execution.</p>
+                        
+                        <div class="form-group">
+                            <label for="performanceCriteria">Performance Criteria:</label>
+                            <textarea id="performanceCriteria" placeholder="Enter evaluation criteria (one per line)">Accuracy of execution
+Adherence to procedures
+Quality of results
+Time management
+Documentation quality</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2><i class="fas fa-chart-line"></i> Direct Assessment Data</h2>
+                    
+                    <div class="metric-box">
+                        <h4>Student Performance Metrics</h4>
+                        <p>Enter average scores for each CO across assessment methods:</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>CO Code</th>
+                                    <th>Exam Score (%)</th>
+                                    <th>Practical Score (%)</th>
+                                    <th>Assignment Score (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="directAssessmentTable">
+                                <!-- Rows will be generated dynamically -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-primary" id="addCoRow">
+                                <i class="fas fa-plus"></i> Add CO
+                            </button>
+                            <button class="btn btn-secondary" id="calcDirectAttainment">
+                                <i class="fas fa-calculator"></i> Calculate Attainment
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculation-steps">
+                        <h4>Direct Attainment Calculation Method</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Weighted Average Calculation:</strong><br>
+                                CO Attainment = (Exam% × Weight₁ + Practical% × Weight₂ + Assignment% × Weight₃) / Total Weight
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Normalization to 0-3 Scale:</strong><br>
+                                90-100% = 3 (Exceeded) | 75-89% = 2 (Attained) | 60-74% = 1 (Partially) | Below 60% = 0 (Not Attained)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Indirect Assessment Tab -->
+        <div class="tab-content" id="indirect-assessment">
+            <div class="dashboard">
+                <div class="panel">
+                    <h2><i class="fas fa-poll"></i> Indirect Assessment Methods</h2>
+                    
+                    <div class="assessment-tool">
+                        <h3>1. Student Surveys & Feedback</h3>
+                        <p class="tool-description">Collect student perceptions about learning outcomes.</p>
+                        
+                        <div class="form-group">
+                            <label for="surveyQuestions">Survey Questions (5-point Likert Scale):</label>
+                            <textarea id="surveyQuestions" placeholder="Enter survey questions">I have achieved the intended learning outcomes of this course.
+The course content helped me develop necessary skills.
+The assessment methods adequately measured my learning.
+I can apply the knowledge gained in real-world situations.
+The course improved my problem-solving abilities.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="surveyResponseRate">Survey Response Rate (%):</label>
+                            <input type="number" id="surveyResponseRate" value="85" min="0" max="100">
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-tool">
+                        <h3>2. Employer/Alumni Feedback</h3>
+                        <p class="tool-description">Gather external feedback on graduate performance.</p>
+                        
+                        <div class="criteria-list">
+                            <li><span class="indicator" style="background-color: #2ecc71;"></span> Technical competence</li>
+                            <li><span class="indicator" style="background-color: #3498db;"></span> Problem-solving skills</li>
+                            <li><span class="indicator" style="background-color: #f39c12;"></span> Communication abilities</li>
+                            <li><span class="indicator" style="background-color: #9b59b6;"></span> Teamwork and collaboration</li>
+                            <li><span class="indicator" style="background-color: #1abc9c;"></span> Ethical and professional conduct</li>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2><i class="fas fa-chart-pie"></i> Indirect Assessment Data</h2>
+                    
+                    <div class="metric-box">
+                        <h4>Survey Results Analysis</h4>
+                        <p>Enter average ratings (1-5 scale) for each CO from indirect assessments:</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>CO Code</th>
+                                    <th>Student Survey</th>
+                                    <th>Employer Feedback</th>
+                                    <th>Alumni Feedback</th>
+                                    <th>Self-Assessment</th>
+                                </tr>
+                            </thead>
+                            <tbody id="indirectAssessmentTable">
+                                <!-- Rows will be generated dynamically -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-primary" id="addIndirectRow">
+                                <i class="fas fa-plus"></i> Add CO
+                            </button>
+                            <button class="btn btn-success" id="calcIndirectAttainment">
+                                <i class="fas fa-chart-bar"></i> Calculate Indirect Attainment
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculation-steps">
+                        <h4>Indirect Attainment Calculation</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Normalization to Percentage:</strong><br>
+                                For 5-point scale: Percentage = (Average Rating / 5) × 100
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Conversion to 0-3 Scale:</strong><br>
+                                4.0-5.0 (80-100%) = 3 | 3.0-3.9 (60-79%) = 2 | 2.0-2.9 (40-59%) = 1 | Below 2.0 = 0
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rubrics Tab -->
+        <div class="tab-content" id="rubrics">
+            <div class="dashboard">
+                <div class="panel">
+                    <h2><i class="fas fa-tasks"></i> CO Assessment Rubrics</h2>
+                    
+                    <div class="assessment-tool">
+                        <h3>Four-Point Attainment Rubric</h3>
+                        <p class="tool-description">Standard rubric for evaluating CO attainment on a 0-3 scale.</p>
+                        
+                        <table class="rubric-table">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Score</th>
+                                    <th width="20%">Level</th>
+                                    <th width="65%">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="rubric-level-3">3</td>
+                                    <td><strong>Exceeded</strong></td>
+                                    <td>Student demonstrates exceptional understanding and application. Can solve complex, unfamiliar problems. Shows creativity and innovation in application of knowledge.</td>
+                                </tr>
+                                <tr>
+                                    <td class="rubric-level-2">2</td>
+                                    <td><strong>Attained</strong></td>
+                                    <td>Student meets all learning outcomes competently. Can apply knowledge to solve standard problems. Shows thorough understanding of concepts.</td>
+                                </tr>
+                                <tr>
+                                    <td class="rubric-level-1">1</td>
+                                    <td><strong>Partially Attained</strong></td>
+                                    <td>Student demonstrates basic understanding but with gaps. Can solve simple problems but struggles with complex applications. Shows partial mastery of concepts.</td>
+                                </tr>
+                                <tr>
+                                    <td class="rubric-level-0">0</td>
+                                    <td><strong>Not Attained</strong></td>
+                                    <td>Student fails to demonstrate understanding. Cannot apply knowledge to solve problems. Shows significant gaps in understanding.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="assessment-tool">
+                        <h3>Detailed Evaluation Criteria</h3>
+                        
+                        <div class="form-group">
+                            <label for="coSelect">Select CO for Detailed Rubric:</label>
+                            <select id="coSelect">
+                                <option value="co1">CO1: Remember and understand concepts</option>
+                                <option value="co2">CO2: Apply knowledge to solve problems</option>
+                                <option value="co3">CO3: Analyze and evaluate information</option>
+                                <option value="co4">CO4: Create and synthesize solutions</option>
+                                <option value="co5">CO5: Demonstrate professional skills</option>
+                            </select>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <h4>CO1: Remember and Understand Concepts</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th width="25%">Criteria</th>
+                                        <th width="25%">Level 3 (Exceeded)</th>
+                                        <th width="25%">Level 2 (Attained)</th>
+                                        <th width="25%">Level 1 (Partially)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Knowledge Recall</strong></td>
+                                        <td>Recalls all concepts accurately with examples</td>
+                                        <td>Recalls most concepts accurately</td>
+                                        <td>Recalls basic concepts with errors</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Understanding</strong></td>
+                                        <td>Explains concepts with depth and connections</td>
+                                        <td>Explains concepts correctly</td>
+                                        <td>Provides limited explanations</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Terminology</strong></td>
+                                        <td>Uses terminology precisely and appropriately</td>
+                                        <td>Uses correct terminology</td>
+                                        <td>Uses terminology with errors</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2><i class="fas fa-bullseye"></i> PO/PSO Assessment Rubrics</h2>
+                    
+                    <div class="assessment-tool">
+                        <h3>PO Attainment Rubric</h3>
+                        <p class="tool-description">Rubric for evaluating Program Outcomes through course assessments.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>PO</th>
+                                    <th>Description</th>
+                                    <th>Assessment Methods</th>
+                                    <th>Target Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>PO1</strong></td>
+                                    <td>Engineering Knowledge</td>
+                                    <td>Exams, Projects, Labs</td>
+                                    <td>Level 2 (Attained)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PO2</strong></td>
+                                    <td>Problem Analysis</td>
+                                    <td>Case Studies, Problem Sets</td>
+                                    <td>Level 2 (Attained)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PO3</strong></td>
+                                    <td>Design/Development</td>
+                                    <td>Projects, Design Tasks</td>
+                                    <td>Level 2 (Attained)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PO4</strong></td>
+                                    <td>Investigation</td>
+                                    <td>Research, Analysis Tasks</td>
+                                    <td>Level 1 (Partially)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PO5</strong></td>
+                                    <td>Modern Tool Usage</td>
+                                    <td>Software, Lab Equipment</td>
+                                    <td>Level 2 (Attained)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PO6</strong></td>
+                                    <td>Engineer & Society</td>
+                                    <td>Case Studies, Ethics Discussions</td>
+                                    <td>Level 1 (Partially)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="assessment-tool">
+                        <h3>PSO Attainment Rubric</h3>
+                        <p class="tool-description">Program Specific Outcomes evaluation criteria.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>PSO</th>
+                                    <th>Description</th>
+                                    <th>Key Indicators</th>
+                                    <th>Target</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>PSO1</strong></td>
+                                    <td>Domain Specific Skills</td>
+                                    <td>Specialized knowledge application</td>
+                                    <td>Level 3 (Exceeded)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PSO2</strong></td>
+                                    <td>Industry Readiness</td>
+                                    <td>Tool proficiency, Industry standards</td>
+                                    <td>Level 2 (Attained)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PSO3</strong></td>
+                                    <td>Research Aptitude</td>
+                                    <td>Literature review, Methodology</td>
+                                    <td>Level 2 (Attained)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-primary" id="generateRubric">
+                            <i class="fas fa-file-download"></i> Download Rubric Template
+                        </button>
+                        <button class="btn btn-secondary" id="customizeRubric">
+                            <i class="fas fa-edit"></i> Customize Rubric
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calculators Tab -->
+        <div class="tab-content" id="calculators">
+            <div class="dashboard">
+                <div class="panel">
+                    <h2><i class="fas fa-calculator"></i> CO Attainment Calculator</h2>
+                    
+                    <div class="assessment-tool">
+                        <h3>Direct-Indirect Weighted Calculation</h3>
+                        <p class="tool-description">Combine direct and indirect assessment results for comprehensive CO attainment.</p>
+                        
+                        <div class="form-group">
+                            <label for="directWeight">Direct Assessment Weight (%):</label>
+                            <input type="number" id="directWeight" value="70" min="0" max="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="indirectWeight">Indirect Assessment Weight (%):</label>
+                            <input type="number" id="indirectWeight" value="30" min="0" max="100">
+                        </div>
+                        
+                        <div class="metric-box">
+                            <h4>CO Attainment Calculation Table</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>CO Code</th>
+                                        <th>Direct Attainment</th>
+                                        <th>Indirect Attainment</th>
+                                        <th>Weighted Attainment</th>
+                                        <th>Final Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="weightedCalculationTable">
+                                    <!-- Rows will be generated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-success" id="calculateWeighted">
+                                <i class="fas fa-balance-scale"></i> Calculate Weighted Attainment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2><i class="fas fa-project-diagram"></i> PO/PSO Attainment Calculator</h2>
+                    
+                    <div class="assessment-tool">
+                        <h3>PO Attainment from CO Mapping</h3>
+                        <p class="tool-description">Calculate PO attainment based on CO-PO mapping and CO attainment levels.</p>
+                        
+                        <div class="form-group">
+                            <label for="poMappingType">PO Calculation Method:</label>
+                            <select id="poMappingType">
+                                <option value="average">Average of Mapped COs</option>
+                                <option value="weighted">Weighted by Correlation Level</option>
+                                <option value="threshold">Threshold-based</option>
+                            </select>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <h4>PO Attainment Calculation</h4>
+                            <div id="poCalculationTable">
+                                <p>Enter CO-PO mapping matrix first, then calculate PO attainment.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-primary" id="setupPOMapping">
+                                <i class="fas fa-table"></i> Setup PO Mapping Matrix
+                            </button>
+                            <button class="btn btn-success" id="calculatePOAttainment">
+                                <i class="fas fa-calculator"></i> Calculate PO Attainment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Dashboard Tab -->
+        <div class="tab-content" id="results">
+            <div class="results-panel">
+                <h2><i class="fas fa-chart-bar"></i> Attainment Results Dashboard</h2>
+                
+                <div class="dashboard">
+                    <div class="panel">
+                        <h3><i class="fas fa-graduation-cap"></i> CO Attainment Summary</h3>
+                        <div class="co-display" id="coResultsDisplay">
+                            <!-- CO cards will be displayed here -->
+                        </div>
+                        
+                        <div class="metric-box">
+                            <h4>Overall CO Attainment Statistics</h4>
+                            <p id="coStatistics">No data calculated yet. Use the calculators to generate results.</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="coProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel">
+                        <h3><i class="fas fa-bullseye"></i> PO/PSO Attainment Summary</h3>
+                        <div id="poResultsDisplay">
+                            <p>PO/PSO attainment results will appear here after calculation.</p>
+                        </div>
+                        
+                        <div class="metric-box">
+                            <h4>Target vs. Actual Attainment</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Outcome</th>
+                                        <th>Target</th>
+                                        <th>Actual</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="targetActualTable">
+                                    <!-- Will be populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="exportAllResults">
+                        <i class="fas fa-file-export"></i> Export All Results
+                    </button>
+                    <button class="btn btn-success" id="generateReport">
+                        <i class="fas fa-file-pdf"></i> Generate Assessment Report
+                    </button>
+                    <button class="btn btn-secondary" id="resetDashboard">
+                        <i class="fas fa-redo"></i> Reset Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Assessment Tools & Rubrics for Outcome-Based Education &copy; 2023 | Comprehensive CO/PO/PSO Assessment System</p>
+        </div>
+    </div>
+
+    <script>
+        // Global data storage
+        let assessmentData = {
+            direct: {},
+            indirect: {},
+            rubrics: {},
+            calculations: {},
+            results: {}
+        };
+        
+        // Initialize the tool
+        function initAssessmentTool() {
+            // Initialize tabs
+            initTabs();
+            
+            // Initialize tables with sample data
+            initDirectAssessmentTable();
+            initIndirectAssessmentTable();
+            initWeightedCalculationTable();
+            
+            // Load sample CO data
+            loadSampleData();
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+        
+        // Initialize tab functionality
+        function initTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show active content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Initialize direct assessment table
+        function initDirectAssessmentTable() {
+            const tableBody = document.getElementById('directAssessmentTable');
+            tableBody.innerHTML = '';
+            
+            // Create 5 sample CO rows
+            for (let i = 1; i <= 5; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>CO${i}</strong></td>
+                    <td><input type="number" class="input-cell" id="co${i}_exam" value="${75 + i * 3}" min="0" max="100"></td>
+                    <td><input type="number" class="input-cell" id="co${i}_practical" value="${80 + i * 2}" min="0" max="100"></td>
+                    <td><input type="number" class="input-cell" id="co${i}_assignment" value="${85 + i}" min="0" max="100"></td>
+                `;
+                tableBody.appendChild(row);
+                
+                // Store initial data
+                assessmentData.direct[`CO${i}`] = {
+                    exam: 75 + i * 3,
+                    practical: 80 + i * 2,
+                    assignment: 85 + i
+                };
+            }
+        }
+        
+        // Initialize indirect assessment table
+        function initIndirectAssessmentTable() {
+            const tableBody = document.getElementById('indirectAssessmentTable');
+            tableBody.innerHTML = '';
+            
+            // Create 5 sample CO rows
+            for (let i = 1; i <= 5; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>CO${i}</strong></td>
+                    <td><input type="number" class="input-cell" id="co${i}_survey" value="${4.0 + (i * 0.1)}" min="1" max="5" step="0.1"></td>
+                    <td><input type="number" class="input-cell" id="co${i}_employer" value="${3.8 + (i * 0.15)}" min="1" max="5" step="0.1"></td>
+                    <td><input type="number" class="input-cell" id="co${i}_alumni" value="${4.2 + (i * 0.05)}" min="1" max="5" step="0.1"></td>
+                    <td><input type="number" class="input-cell" id="co${i}_self" value="${3.9 + (i * 0.1)}" min="1" max="5" step="0.1"></td>
+                `;
+                tableBody.appendChild(row);
+                
+                // Store initial data
+                assessmentData.indirect[`CO${i}`] = {
+                    survey: 4.0 + (i * 0.1),
+                    employer: 3.8 + (i * 0.15),
+                    alumni: 4.2 + (i * 0.05),
+                    self: 3.9 + (i * 0.1)
+                };
+            }
+        }
+        
+        // Initialize weighted calculation table
+        function initWeightedCalculationTable() {
+            const tableBody = document.getElementById('weightedCalculationTable');
+            tableBody.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>CO${i}</strong></td>
+                    <td id="co${i}_directDisplay">-</td>
+                    <td id="co${i}_indirectDisplay">-</td>
+                    <td id="co${i}_weightedDisplay">-</td>
+                    <td id="co${i}_finalLevel">-</td>
+                `;
+                tableBody.appendChild(row);
+            }
+        }
+        
+        // Load sample data
+        function loadSampleData() {
+            // Sample CO attainment data
+            assessmentData.results.coAttainment = {
+                'CO1': { value: 2, level: 'Attained', score: 78.5 },
+                'CO2': { value: 3, level: 'Exceeded', score: 91.2 },
+                'CO3': { value: 2, level: 'Attained', score: 82.7 },
+                'CO4': { value: 1, level: 'Partially Attained', score: 65.4 },
+                'CO5': { value: 2, level: 'Attained', score: 76.8 }
+            };
+            
+            // Sample PO attainment data
+            assessmentData.results.poAttainment = {
+                'PO1': { value: 2.4, level: 'Attained' },
+                'PO2': { value: 2.1, level: 'Attained' },
+                'PO3': { value: 1.8, level: 'Partially Attained' },
+                'PO4': { value: 2.7, level: 'Exceeded' },
+                'PO5': { value: 2.0, level: 'Attained' },
+                'PO6': { value: 1.5, level: 'Partially Attained' }
+            };
+        }
+        
+        // Calculate direct CO attainment
+        function calculateDirectAttainment() {
+            const directResults = {};
+            
+            // Calculate for each CO
+            for (let i = 1; i <= 5; i++) {
+                const exam = parseFloat(document.getElementById(`co${i}_exam`).value) || 0;
+                const practical = parseFloat(document.getElementById(`co${i}_practical`).value) || 0;
+                const assignment = parseFloat(document.getElementById(`co${i}_assignment`).value) || 0;
+                
+                // Weighted average (adjust weights as needed)
+                const weightedAvg = (exam * 0.5) + (practical * 0.3) + (assignment * 0.2);
+                
+                // Convert to 0-3 scale
+                let attainmentValue;
+                let attainmentLevel;
+                
+                if (weightedAvg >= 90) {
+                    attainmentValue = 3;
+                    attainmentLevel = 'Exceeded';
+                } else if (weightedAvg >= 75) {
+                    attainmentValue = 2;
+                    attainmentLevel = 'Attained';
+                } else if (weightedAvg >= 60) {
+                    attainmentValue = 1;
+                    attainmentLevel = 'Partially Attained';
+                } else {
+                    attainmentValue = 0;
+                    attainmentLevel = 'Not Attained';
+                }
+                
+                directResults[`CO${i}`] = {
+                    value: attainmentValue,
+                    level: attainmentLevel,
+                    score: weightedAvg.toFixed(2)
+                };
+                
+                // Update display in weighted calculation table
+                document.getElementById(`co${i}_directDisplay`).textContent = attainmentValue;
+                document.getElementById(`co${i}_directDisplay`).className = `co-level level-${getLevelClass(attainmentValue)}`;
+            }
+            
+            assessmentData.calculations.direct = directResults;
+            return directResults;
+        }
+        
+        // Calculate indirect CO attainment
+        function calculateIndirectAttainment() {
+            const indirectResults = {};
+            
+            // Calculate for each CO
+            for (let i = 1; i <= 5; i++) {
+                const survey = parseFloat(document.getElementById(`co${i}_survey`).value) || 0;
+                const employer = parseFloat(document.getElementById(`co${i}_employer`).value) || 0;
+                const alumni = parseFloat(document.getElementById(`co${i}_alumni`).value) || 0;
+                const self = parseFloat(document.getElementById(`co${i}_self`).value) || 0;
+                
+                // Average of all indirect measures
+                const avgRating = (survey + employer + alumni + self) / 4;
+                
+                // Convert 5-point scale to percentage
+                const percentage = (avgRating / 5) * 100;
+                
+                // Convert to 0-3 scale
+                let attainmentValue;
+                let attainmentLevel;
+                
+                if (percentage >= 80) { // 4.0+ on 5-point scale
+                    attainmentValue = 3;
+                    attainmentLevel = 'Exceeded';
+                } else if (percentage >= 60) { // 3.0-3.9
+                    attainmentValue = 2;
+                    attainmentLevel = 'Attained';
+                } else if (percentage >= 40) { // 2.0-2.9
+                    attainmentValue = 1;
+                    attainmentLevel = 'Partially Attained';
+                } else {
+                    attainmentValue = 0;
+                    attainmentLevel = 'Not Attained';
+                }
+                
+                indirectResults[`CO${i}`] = {
+                    value: attainmentValue,
+                    level: attainmentLevel,
+                    rating: avgRating.toFixed(2)
+                };
+                
+                // Update display in weighted calculation table
+                document.getElementById(`co${i}_indirectDisplay`).textContent = attainmentValue;
+                document.getElementById(`co${i}_indirectDisplay`).className = `co-level level-${getLevelClass(attainmentValue)}`;
+            }
+            
+            assessmentData.calculations.indirect = indirectResults;
+            return indirectResults;
+        }
+        
+        // Calculate weighted CO attainment
+        function calculateWeightedAttainment() {
+            const directWeight = parseFloat(document.getElementById('directWeight').value) || 70;
+            const indirectWeight = parseFloat(document.getElementById('indirectWeight').value) || 30;
+            
+            // Ensure weights sum to 100
+            if (directWeight + indirectWeight !== 100) {
+                alert('Direct and Indirect weights must sum to 100%');
+                return;
+            }
+            
+            const directResults = assessmentData.calculations.direct || calculateDirectAttainment();
+            const indirectResults = assessmentData.calculations.indirect || calculateIndirectAttainment();
+            
+            const weightedResults = {};
+            
+            // Calculate weighted attainment for each CO
+            for (let i = 1; i <= 5; i++) {
+                const coKey = `CO${i}`;
+                const directValue = directResults[coKey]?.value || 0;
+                const indirectValue = indirectResults[coKey]?.value || 0;
+                
+                // Calculate weighted value
+                const weightedValue = (directValue * (directWeight/100)) + (indirectValue * (indirectWeight/100));
+                
+                // Round to nearest 0.5
+                const roundedValue = Math.round(weightedValue * 2) / 2;
+                
+                // Determine level
+                let level;
+                if (roundedValue >= 2.5) level = 'Exceeded';
+                else if (roundedValue >= 1.5) level = 'Attained';
+                else if (roundedValue >= 0.5) level = 'Partially Attained';
+                else level = 'Not Attained';
+                
+                weightedResults[coKey] = {
+                    value: roundedValue.toFixed(1),
+                    level: level,
+                    direct: directValue,
+                    indirect: indirectValue
+                };
+                
+                // Update display
+                document.getElementById(`co${i}_weightedDisplay`).textContent = roundedValue.toFixed(1);
+                document.getElementById(`co${i}_finalLevel`).textContent = level;
+                document.getElementById(`co${i}_finalLevel`).className = `co-level level-${getLevelClass(Math.round(roundedValue))}`;
+            }
+            
+            assessmentData.calculations.weighted = weightedResults;
+            updateResultsDashboard(weightedResults);
+            return weightedResults;
+        }
+        
+        // Get CSS class for attainment level
+        function getLevelClass(value) {
+            if (value >= 3) return 'excellent';
+            if (value >= 2) return 'good';
+            if (value >= 1) return 'average';
+            return 'poor';
+        }
+        
+        // Update results dashboard
+        function updateResultsDashboard(coAttainment) {
+            const resultsDisplay = document.getElementById('coResultsDisplay');
+            resultsDisplay.innerHTML = '';
+            
+            let totalValue = 0;
+            let coCount = 0;
+            
+            // Create CO cards
+            for (const [coCode, data] of Object.entries(coAttainment)) {
+                const levelClass = `level-${getLevelClass(Math.round(parseFloat(data.value)))}`;
+                
+                const card = document.createElement('div');
+                card.className = 'co-card';
+                card.innerHTML = `
+                    <div class="co-code">${coCode}</div>
+                    <div class="co-value">${data.value}</div>
+                    <div class="co-level ${levelClass}">${data.level}</div>
+                    <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 5px;">
+                        Direct: ${data.direct} | Indirect: ${data.indirect}
+                    </div>
+                `;
+                resultsDisplay.appendChild(card);
+                
+                totalValue += parseFloat(data.value);
+                coCount++;
+            }
+            
+            // Calculate and display statistics
+            const averageValue = coCount > 0 ? (totalValue / coCount).toFixed(2) : 0;
+            const progressPercent = (averageValue / 3) * 100;
+            
+            document.getElementById('coStatistics').innerHTML = `
+                <strong>Average CO Attainment:</strong> ${averageValue} on 0-3 scale<br>
+                <strong>Highest Attainment:</strong> ${Math.max(...Object.values(coAttainment).map(d => parseFloat(d.value)))}<br>
+                <strong>Lowest Attainment:</strong> ${Math.min(...Object.values(coAttainment).map(d => parseFloat(d.value)))}
+            `;
+            
+            document.getElementById('coProgress').style.width = `${progressPercent}%`;
+            
+            // Switch to results tab
+            document.querySelector('[data-tab="results"]').click();
+        }
+        
+        // Setup PO mapping matrix
+        function setupPOMapping() {
+            const poCalculationTable = document.getElementById('poCalculationTable');
+            
+            // Create a simple PO mapping interface
+            poCalculationTable.innerHTML = `
+                <h4>CO-PO Mapping Matrix</h4>
+                <p>Enter correlation levels (0-3) for each CO-PO combination:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO/PO</th>
+                            <th>PO1</th>
+                            <th>PO2</th>
+                            <th>PO3</th>
+                            <th>PO4</th>
+                            <th>PO5</th>
+                            <th>PO6</th>
+                        </tr>
+                    </thead>
+                    <tbody id="poMappingMatrix">
+                        ${Array.from({length: 5}, (_, i) => `
+                            <tr>
+                                <td><strong>CO${i+1}</strong></td>
+                                <td><input type="number" class="input-cell" id="co${i+1}_po1" value="${i === 0 ? 3 : i === 1 ? 2 : i === 2 ? 1 : i === 3 ? 0 : 2}" min="0" max="3"></td>
+                                <td><input type="number" class="input-cell" id="co${i+1}_po2" value="${i === 0 ? 2 : i === 1 ? 3 : i === 2 ? 2 : i === 3 ? 1 : 0}" min="0" max="3"></td>
+                                <td><input type="number" class="input-cell" id="co${i+1}_po3" value="${i === 0 ? 1 : i === 1 ? 2 : i === 2 ? 3 : i === 3 ? 2 : 1}" min="0" max="3"></td>
+                                <td><input type="number" class="input-cell" id="co${i+1}_po4" value="${i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : i === 3 ? 3 : 2}" min="0" max="3"></td>
+                                <td><input type="number" class="input-cell" id="co${i+1}_po5" value="${i === 0 ? 2 : i === 1 ? 0 : i === 2 ? 1 : i === 3 ? 2 : 3}" min="0" max="3"></td>
+                                <td><input type="number" class="input-cell" id="co${i+1}_po6" value="${i === 0 ? 0 : i === 1 ? 0 : i === 2 ? 0 : i === 3 ? 1 : 2}" min="0" max="3"></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+        
+        // Calculate PO attainment
+        function calculatePOAttainment() {
+            // Get CO attainment values
+            const coAttainment = assessmentData.calculations.weighted || calculateWeightedAttainment();
+            
+            // Calculate PO attainment
+            const poAttainment = {};
+            
+            for (let po = 1; po <= 6; po++) {
+                let totalWeightedValue = 0;
+                let totalWeight = 0;
+                
+                for (let co = 1; co <= 5; co++) {
+                    const mappingElement = document.getElementById(`co${co}_po${po}`);
+                    if (mappingElement) {
+                        const correlation = parseFloat(mappingElement.value) || 0;
+                        const coValue = parseFloat(coAttainment[`CO${co}`]?.value) || 0;
+                        
+                        if (correlation > 0) {
+                            totalWeightedValue += coValue * correlation;
+                            totalWeight += correlation;
+                        }
+                    }
+                }
+                
+                const poValue = totalWeight > 0 ? (totalWeightedValue / totalWeight) : 0;
+                
+                // Determine PO level
+                let poLevel;
+                if (poValue >= 2.5) poLevel = 'Exceeded';
+                else if (poValue >= 1.5) poLevel = 'Attained';
+                else if (poValue >= 0.5) poLevel = 'Partially Attained';
+                else poLevel = 'Not Attained';
+                
+                poAttainment[`PO${po}`] = {
+                    value: poValue.toFixed(2),
+                    level: poLevel
+                };
+            }
+            
+            // Update PO results display
+            updatePOResults(poAttainment);
+            return poAttainment;
+        }
+        
+        // Update PO results display
+        function updatePOResults(poAttainment) {
+            const poResultsDisplay = document.getElementById('poResultsDisplay');
+            const targetActualTable = document.getElementById('targetActualTable');
+            
+            // Create PO results display
+            let poHtml = '<div class="co-display">';
+            for (const [poCode, data] of Object.entries(poAttainment)) {
+                const levelClass = `level-${getLevelClass(Math.round(parseFloat(data.value)))}`;
+                
+                poHtml += `
+                    <div class="co-card">
+                        <div class="co-code">${poCode}</div>
+                        <div class="co-value">${data.value}</div>
+                        <div class="co-level ${levelClass}">${data.level}</div>
+                    </div>
+                `;
+            }
+            poHtml += '</div>';
+            poResultsDisplay.innerHTML = poHtml;
+            
+            // Update target vs actual table
+            let tableHtml = '';
+            const targetLevels = {
+                'PO1': 'Attained', 'PO2': 'Attained', 'PO3': 'Attained',
+                'PO4': 'Partially Attained', 'PO5': 'Attained', 'PO6': 'Partially Attained'
+            };
+            
+            for (const [poCode, data] of Object.entries(poAttainment)) {
+                const target = targetLevels[poCode] || 'Attained';
+                const actual = data.level;
+                const status = actual === target ? 'Met' : 
+                              (getLevelValue(actual) > getLevelValue(target) ? 'Exceeded' : 'Not Met');
+                
+                tableHtml += `
+                    <tr>
+                        <td>${poCode}</td>
+                        <td>${target}</td>
+                        <td>${actual}</td>
+                        <td><span class="highlight">${status}</span></td>
+                    </tr>
+                `;
+            }
+            targetActualTable.innerHTML = tableHtml;
+        }
+        
+        // Get numeric value for level
+        function getLevelValue(level) {
+            switch(level) {
+                case 'Exceeded': return 3;
+                case 'Attained': return 2;
+                case 'Partially Attained': return 1;
+                default: return 0;
+            }
+        }
+        
+        // Export all results
+        function exportAllResults() {
+            const dataStr = JSON.stringify(assessmentData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'assessment_results.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Generate assessment report
+        function generateReport() {
+            alert('Assessment report generation would typically connect to a backend service. In a real implementation, this would generate a PDF report.');
+        }
+        
+        // Reset dashboard
+        function resetDashboard() {
+            if (confirm('Are you sure you want to reset all assessment data? This action cannot be undone.')) {
+                // Reset all input fields
+                document.querySelectorAll('input[type="number"]').forEach(input => {
+                    if (input.id.includes('co')) {
+                        input.value = '0';
+                    }
+                });
+                
+                // Reset calculation displays
+                document.querySelectorAll('#weightedCalculationTable td').forEach(td => {
+                    if (td.id && td.id.includes('Display')) {
+                        td.textContent = '-';
+                        td.className = '';
+                    }
+                });
+                
+                // Reset results display
+                document.getElementById('coResultsDisplay').innerHTML = '';
+                document.getElementById('coStatistics').textContent = 'No data calculated yet. Use the calculators to generate results.';
+                document.getElementById('coProgress').style.width = '0%';
+                document.getElementById('poResultsDisplay').innerHTML = '<p>PO/PSO attainment results will appear here after calculation.</p>';
+                document.getElementById('targetActualTable').innerHTML = '';
+                
+                // Reset assessment data
+                assessmentData = {
+                    direct: {},
+                    indirect: {},
+                    rubrics: {},
+                    calculations: {},
+                    results: {}
+                };
+                
+                alert('Dashboard has been reset.');
+            }
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Direct assessment calculation
+            document.getElementById('calcDirectAttainment').addEventListener('click', calculateDirectAttainment);
+            
+            // Indirect assessment calculation
+            document.getElementById('calcIndirectAttainment').addEventListener('click', calculateIndirectAttainment);
+            
+            // Weighted calculation
+            document.getElementById('calculateWeighted').addEventListener('click', calculateWeightedAttainment);
+            
+            // PO mapping setup
+            document.getElementById('setupPOMapping').addEventListener('click', setupPOMapping);
+            
+            // PO attainment calculation
+            document.getElementById('calculatePOAttainment').addEventListener('click', calculatePOAttainment);
+            
+            // Export and report buttons
+            document.getElementById('exportAllResults').addEventListener('click', exportAllResults);
+            document.getElementById('generateReport').addEventListener('click', generateReport);
+            document.getElementById('resetDashboard').addEventListener('click', resetDashboard);
+            
+            // Add CO row buttons
+            document.getElementById('addCoRow').addEventListener('click', () => {
+                alert('In a full implementation, this would add a new CO row to the table.');
+            });
+            
+            document.getElementById('addIndirectRow').addEventListener('click', () => {
+                alert('In a full implementation, this would add a new indirect assessment row.');
+            });
+            
+            // Rubric buttons
+            document.getElementById('generateRubric').addEventListener('click', () => {
+                alert('Rubric template download would start. In a real implementation, this would generate a Word/PDF document.');
+            });
+            
+            document.getElementById('customizeRubric').addEventListener('click', () => {
+                alert('Rubric customization panel would open. This feature allows you to modify rubrics for specific courses.');
+            });
+        }
+        
+        // Initialize the tool when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initAssessmentTool);
+    </script>
+</body>
+</html>
